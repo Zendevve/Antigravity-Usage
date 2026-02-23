@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",
+    "moduleResolution": "node",
     "lib": [
       "ES2022",
       "DOM"
@@ -28,5 +29,9 @@
   },
   "include": [
     "src/**/*"
+  ],
+  "exclude": [
+    "src/**/__tests__/*",
+    "src/**/*.spec.ts"
   ]
 }

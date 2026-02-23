@@ -6,6 +6,17 @@ vi.mock('../../../util/http-client', () => ({
   fetchWithTimeout: vi.fn(),
 }));
 
+vi.mock('vscode', () => ({
+  workspace: {
+    getConfiguration: vi.fn(() => ({
+      get: vi.fn(),
+    })),
+  },
+  window: {
+    showErrorMessage: vi.fn(),
+  }
+}));
+
 describe('AntigravityApiSource', () => {
   it('fetches and returns a valid SourceReading', async () => {
     const mockReading = {

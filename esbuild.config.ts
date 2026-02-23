@@ -12,6 +12,7 @@ const options: esbuild.BuildOptions = {
   sourcemap: true,
   target: 'es2022',
   logLevel: 'info',
+  minify: true,
 };
 
 async function build() {

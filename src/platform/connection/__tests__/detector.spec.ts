@@ -16,12 +16,11 @@ describe('Connection Detector', () => {
     vi.stubEnv('ANTIGRAVITY_PORT', '19999');
     vi.stubEnv('ANTIGRAVITY_TOKEN', 'secret123');
 
-    // mock context
-    const result = await detectConnection({} as any);
-
+    const result = await detectConnection();
     expect(result).toEqual({
       port: 19999,
       token: 'secret123',
+      source: 'env'
     });
   });
 });

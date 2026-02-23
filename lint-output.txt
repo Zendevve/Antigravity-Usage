@@ -1,0 +1,25 @@
+
+D:\COMPROG\antigravity quota\src\core\polling\__tests__\polling-scheduler.spec.ts
+   3:16  error  'toArray' is defined but never used             @typescript-eslint/no-unused-vars
+  16:51  error  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+
+D:\COMPROG\antigravity quota\src\core\polling\backoff.ts
+  1:22  error  'timer' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\COMPROG\antigravity quota\src\core\state\streams.ts
+  1:64  error  'Observable' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\COMPROG\antigravity quota\src\extension.ts
+  19:11  error  'config' is assigned a value but never used                                                                                                                         @typescript-eslint/no-unused-vars
+  46:7   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  49:7   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  52:7   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  55:7   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  64:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+D:\COMPROG\antigravity quota\src\i18n\setup.ts
+   6:9   warning  Caution: `i18next` also has a named export `init`. Check if you meant to write `import {init} from 'i18next'` instead  import/no-named-as-default-member
+  17:10  warning  Caution: `i18next` also has a named export `t`. Check if you meant to write `import {t} from 'i18next'` instead        import/no-named-as-default-member
+
+Γ£û 12 problems (10 errors, 2 warnings)
+

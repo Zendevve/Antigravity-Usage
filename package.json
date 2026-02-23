@@ -4,6 +4,14 @@
   "description": "Monitors Antigravity quota and predicts exhaustion",
   "version": "0.1.0",
   "publisher": "zendevve",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zendevve/k1-antigravity-monitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Zendevve/k1-antigravity-monitor/issues"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -115,28 +123,29 @@
     "publish": "vsce publish"
   },
   "dependencies": {
+    "express": "^4.18.2",
     "i18next": "^23.7.11",
     "rxjs": "^7.8.1",
-    "zod": "^3.22.4",
-    "express": "^4.18.2"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
+    "@types/express": "^4.17.21",
     "@types/node": "^20.10.6",
     "@types/vscode": "^1.80.0",
-    "@types/express": "^4.17.21",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "@vitest/coverage-v8": "^1.1.1",
+    "@vscode/vsce": "^2.22.0",
     "esbuild": "^0.19.10",
     "eslint": "^8.56.0",
     "eslint-plugin-import": "^2.29.1",
     "prettier": "^3.1.1",
+    "ts-loader": "^9.5.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "vitest": "^1.1.1",
     "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "@vscode/vsce": "^2.22.0"
+    "webpack-cli": "^5.1.4"
   }
 }

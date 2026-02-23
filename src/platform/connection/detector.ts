@@ -7,15 +7,28 @@ import * as os from 'os';
 export interface ConnectionResult {
   port: number;
   token?: string;
+  source?: string;
 }
 
-export async function detectConnection(context: vscode.ExtensionContext): Promise<ConnectionResult | null> {
+export function checkEnvVariables(): ConnectionResult | null {
+  const env = process.env as Record<string, string | undefined>;
+  const portStr = env['ANTIGRAVITY_PORT'];
+  const token = env['ANTIGRAVITY_TOKEN'];
+
+  if (portStr) {
+    const port = parseInt(portStr, 10);
+    if (!isNaN(port)) {
+      return { port, token, source: 'env' };
+    }
+  }
+  return null;
+}
+
+export async function detectConnection(): Promise<ConnectionResult | null> {
   // Step 1: Env
-  if (process.env.ANTIGRAVITY_PORT) {
-    return {
-      port: parseInt(process.env.ANTIGRAVITY_PORT, 10),
-      token: process.env.ANTIGRAVITY_TOKEN,
-    };
+  const envConnection = checkEnvVariables();
+  if (envConnection) {
+    return envConnection;
   }
 
   // Step 2: Process check
@@ -23,8 +36,21 @@ export async function detectConnection(context: vscode.ExtensionContext): Promis
     const isWindows = process.platform === 'win32';
     const cmd = isWindows ? 'tasklist' : 'ps aux | grep antigravity';
     const output = cp.execSync(cmd, { encoding: 'utf8' });
-    if (!output.toLowerCase().includes('antigravity')) {
-      // no process found, but we'll keep trying
+    if (output.toLowerCase().includes('antigravity')) {
+      const lines = output.split('\n');
+      for (const line of lines) {
+        if (line.includes('antigravity') && line.includes('--port')) {
+          const match = line.match(/--port\s+(\d+)/);
+          const tokenMatch = line.match(/--token\s+([a-zA-Z0-9_-]+)/);
+          if (match) {
+            return {
+              port: parseInt(match[1], 10),
+              token: tokenMatch ? tokenMatch[1] : undefined,
+              source: 'process'
+            };
+          }
+        }
+      }
     }
   } catch {
     // ignore process check errors
@@ -34,7 +60,7 @@ export async function detectConnection(context: vscode.ExtensionContext): Promis
   try {
     const configPath = path.join(os.homedir(), '.antigravity', 'config.json');
     if (fs.existsSync(configPath)) {
-      const data = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+      const data = JSON.parse(fs.readFileSync(configPath, 'utf8')) as { port?: number, token?: string };
       if (data.port) {
         return { port: data.port, token: data.token };
       }

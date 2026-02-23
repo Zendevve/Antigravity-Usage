@@ -3,6 +3,7 @@ import * as webpack from 'webpack';
 
 const config: webpack.Configuration = {
   mode: 'production',
+  target: 'node',
   entry: {
     extension: './src/extension.ts',
   },
