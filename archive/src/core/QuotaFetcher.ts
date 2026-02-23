@@ -13,7 +13,6 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import * as https from 'https';
 import * as process from 'process';
-import * as net from 'net';
 import { ModelQuota, CreditInfo } from './types';
 
 const execAsync = promisify(exec);
@@ -72,11 +71,6 @@ export class QuotaFetcher {
   private processName: string;
   private isWindows: boolean;
 
-  // Scan range for port detection
-  private readonly PORT_START = 8090;
-  private readonly PORT_END = 8150;
-  private readonly SOCKET_TIMEOUT = 500;
-
   constructor() {
     const config = getPlatformConfig();
     this.processName = config.processName;
@@ -97,12 +91,15 @@ export class QuotaFetcher {
   async connect(maxRetries = 3): Promise<boolean> {
     console.log('[QuotaFetcher] Starting connection detection...');
 
+    let lastError = 'Unknown connection error';
+
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
         // Step 1: Get CSRF token from process
         const processInfo = await this.getProcessInfo();
         if (!processInfo?.csrfToken) {
-          console.log(`[QuotaFetcher] Attempt ${attempt}: No process with CSRF token found`);
+          lastError = `Process '${this.processName}' not found or missing CSRF token`;
+          console.log(`[QuotaFetcher] Attempt ${attempt}: ${lastError}`);
           if (attempt < maxRetries) {
             await this.delay(2000);
           }
@@ -112,9 +109,10 @@ export class QuotaFetcher {
         console.log(`[QuotaFetcher] Found CSRF token: ${processInfo.csrfToken.substring(0, 8)}...`);
 
         // Step 2: Find working API port via socket scan
-        const port = await this.findApiPort(processInfo.csrfToken);
+        const port = await this.findApiPort(processInfo.csrfToken, processInfo.pid);
         if (!port) {
-          console.log(`[QuotaFetcher] Attempt ${attempt}: No working API port found`);
+          lastError = 'API port not found (checked listening ports)';
+          console.log(`[QuotaFetcher] Attempt ${attempt}: ${lastError}`);
           if (attempt < maxRetries) {
             await this.delay(2000);
           }
@@ -126,6 +124,7 @@ export class QuotaFetcher {
         return true;
 
       } catch (error: any) {
+        lastError = error.message;
         console.error(`[QuotaFetcher] Attempt ${attempt} failed:`, error.message);
         if (attempt < maxRetries) {
           await this.delay(2000);
@@ -134,19 +133,16 @@ export class QuotaFetcher {
     }
 
     console.error('[QuotaFetcher] All connection attempts failed');
-    return false;
+    throw new Error(lastError);
   }
 
   /**
    * Fetch quota data from the API
-   * Returns raw model quotas and credits
+   * Returns raw model quotas and credits. Throws on error.
    */
-  async fetch(): Promise<RawQuotaResponse | null> {
+  async fetch(): Promise<RawQuotaResponse> {
     if (!this.connection) {
-      const connected = await this.connect();
-      if (!connected) {
-        return null;
-      }
+      await this.connect();
     }
 
     try {
@@ -155,9 +151,9 @@ export class QuotaFetcher {
     } catch (error: any) {
       console.error('[QuotaFetcher] API request failed:', error.message);
 
-      // Connection might be stale, reset and try again next time
+      // Connection might be stale, reset for next time
       this.connection = null;
-      return null;
+      throw new Error(`API Request Failed: ${error.message}`);
     }
   }
 
@@ -251,76 +247,102 @@ export class QuotaFetcher {
   }
 
   // ============================================================================
-  // Private: Port Scanning
+  // Private: Port Detection (Netstat Strategy)
   // ============================================================================
 
-  private async findApiPort(csrfToken: string): Promise<number | null> {
-    console.log(`[QuotaFetcher] Scanning ports ${this.PORT_START}-${this.PORT_END}...`);
-
-    // Parallel port check for speed (Doherty Threshold)
-    const portChecks = [];
-    for (let port = this.PORT_START; port <= this.PORT_END; port++) {
-      portChecks.push(this.checkPort(port, csrfToken));
+  private async findApiPort(csrfToken: string, pid?: number): Promise<number | null> {
+    if (!pid) {
+      // If we don't have a PID (e.g. from legacy path), we can't use netstat effectively for a specific process.
+      // But getProcessInfo currently always returns a PID.
+      console.warn('[QuotaFetcher] No PID provided for port detection');
+      return null;
     }
 
-    const results = await Promise.all(portChecks);
-    const workingPort = results.find(r => r.works);
+    console.log(`[QuotaFetcher] Finding listening ports for PID ${pid}...`);
+    const ports = await this.getProcessListeningPorts(pid);
 
-    return workingPort ? workingPort.port : null;
-  }
-
-  private async checkPort(port: number, csrfToken: string): Promise<{ port: number; works: boolean }> {
-    // First check if port is open via TCP
-    const isOpen = await this.isPortOpen(port);
-    if (!isOpen) {
-      return { port, works: false };
+    if (ports.length === 0) {
+      console.log(`[QuotaFetcher] No listening ports found for PID ${pid}`);
+      return null;
     }
 
-    // Then validate it's the right API
-    const works = await this.testApiEndpoint(port, csrfToken);
-    return { port, works };
-  }
+    console.log(`[QuotaFetcher] Candidate ports: ${ports.join(', ')}`);
 
-  private isPortOpen(port: number): Promise<boolean> {
-    return new Promise((resolve) => {
-      const socket = new net.Socket();
-      let resolved = false;
-
-      socket.setTimeout(this.SOCKET_TIMEOUT);
-
-      socket.on('connect', () => {
-        if (!resolved) {
-          resolved = true;
-          socket.destroy();
-          resolve(true);
-        }
-      });
-
-      socket.on('timeout', () => {
-        if (!resolved) {
-          resolved = true;
-          socket.destroy();
-          resolve(false);
-        }
-      });
-
-      socket.on('error', () => {
-        if (!resolved) {
-          resolved = true;
-          socket.destroy();
-          resolve(false);
-        }
-      });
-
-      try {
-        socket.connect(port, '127.0.0.1');
-      } catch {
-        if (!resolved) {
-          resolved = true;
-          resolve(false);
-        }
+    // Test each port to find the one serving the API
+    for (const port of ports) {
+      const works = await this.testApiEndpoint(port, csrfToken);
+      if (works) {
+        return port;
       }
-    });
+    }
+
+    return null;
+  }
+
+  private async getProcessListeningPorts(pid: number): Promise<number[]> {
+    try {
+      if (this.isWindows) {
+        return await this.getWindowsListeningPorts(pid);
+      } else {
+        return await this.getUnixListeningPorts(pid);
+      }
+    } catch (error: any) {
+      console.error('[QuotaFetcher] Port detection failed:', error.message);
+      return [];
+    }
+  }
+
+  private async getWindowsListeningPorts(pid: number): Promise<number[]> {
+    // netstat -ano | findstr <PID> | findstr LISTENING
+    const cmd = `netstat -ano | findstr "${pid}" | findstr "LISTENING"`;
+    try {
+      const { stdout } = await execAsync(cmd, { timeout: 3000 });
+      return this.parseNetstatOutput(stdout);
+    } catch (e) {
+      // findstr returns error code 1 if no match found, which means no ports
+      return [];
+    }
+  }
+
+  private async getUnixListeningPorts(pid: number): Promise<number[]> {
+    // lsof -a -p <PID> -iTCP -sTCP:LISTEN -P -n
+    const cmd = `lsof -a -p ${pid} -iTCP -sTCP:LISTEN -P -n | grep LISTEN`;
+    try {
+      const { stdout } = await execAsync(cmd, { timeout: 3000 });
+      return this.parseLsofOutput(stdout); // Implement if needed, or reuse parser if format similar
+    } catch (e) {
+      return [];
+    }
+  }
+
+  private parseNetstatOutput(stdout: string): number[] {
+    // Expected: TCP    127.0.0.1:2873 ... LISTENING ...
+    const portRegex = /(?:127\.0\.0\.1|0\.0\.0\.0|\[::1?\]):(\d+)\s+\S+\s+LISTENING/gi;
+    const ports: number[] = [];
+    let match;
+
+    while ((match = portRegex.exec(stdout)) !== null) {
+      const port = parseInt(match[1], 10);
+      if (!ports.includes(port)) {
+        ports.push(port);
+      }
+    }
+    return ports.sort((a, b) => a - b);
+  }
+
+  private parseLsofOutput(stdout: string): number[] {
+    // node      1234 user   20u  IPv4 0x...      0t0  TCP 127.0.0.1:4567 (LISTEN)
+    const portRegex = /:(\d+)\s+\(LISTEN\)/gi;
+    const ports: number[] = [];
+    let match;
+
+    while ((match = portRegex.exec(stdout)) !== null) {
+      const port = parseInt(match[1], 10);
+      if (!ports.includes(port)) {
+        ports.push(port);
+      }
+    }
+    return ports.sort((a, b) => a - b);
   }
 
   private testApiEndpoint(port: number, csrfToken: string): Promise<boolean> {

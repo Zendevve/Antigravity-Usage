@@ -1,0 +1,22 @@
+name: Nightly Performance Test
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # 2 AM UTC every day
+  workflow_dispatch:
+
+jobs:
+  performance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: Run 8-Hour Memory Simulation
+        run: npm run test:perf

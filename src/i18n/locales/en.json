@@ -1,0 +1,43 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor failed to start."
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Model",
+      "remaining": "Remaining",
+      "confidence": "Confidence",
+      "updated": "Updated",
+      "stale": "Data may be outdated"
+    },
+    "warning": {
+      "stale": "⚠ Stale",
+      "calculating": "Calculating…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Refresh Quota",
+      "label": "Refreshing…"
+    },
+    "switchModel": {
+      "title": "K1: Switch Model"
+    },
+    "togglePanel": {
+      "title": "K1: Toggle Panel"
+    },
+    "showDiagnostics": {
+      "title": "K1: Show Diagnostics"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Quota Warning",
+      "message": "Your Antigravity Quota has fallen below the warning threshold."
+    },
+    "critical": {
+      "title": "Quota Critical",
+      "message": "Your Antigravity Quota is critically low."
+    }
+  }
+}
