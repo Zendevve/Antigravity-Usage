@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor non è riuscito ad avviarsi.",
+    "privacyNotice": {
+      "title": "Avviso sulla Privacy",
+      "message": "K1 Antigravity Monitor raccoglie dati di utilizzo anonimi per migliorare l'estensione. Puoi disattivarlo in qualsiasi momento nelle impostazioni.",
+      "accept": "Accetta",
+      "decline": "Rifiuta"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Modello",
+      "remaining": "Rimanente",
+      "confidence": "Affidabilità",
+      "updated": "Aggiornato",
+      "stale": "I dati potrebbero essere obsoleti",
+      "quietHours": "Avvisi soppressi (orario silenzioso attivo)",
+      "snoozed": "Avvisi posticipati"
+    },
+    "warning": {
+      "stale": "⚹ Obsoleto",
+      "calculating": "Calcolo in corso…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Aggiorna Quota",
+      "label": "Aggiornamento in corso…"
+    },
+    "switchModel": {
+      "title": "K1: Cambia Modello"
+    },
+    "togglePanel": {
+      "title": "K1: Attiva/Disattiva Pannello"
+    },
+    "showDiagnostics": {
+      "title": "K1: Mostra Diagnostica"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Posticipa Avvisi"
+    },
+    "clearSnooze": {
+      "title": "K1: Cancella Posticipo Avvisi"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Avviso Quota",
+      "message": "Avviso: Quota bassa per {{model}} ({{percent}}% rimanente)"
+    },
+    "critical": {
+      "title": "Quota Critica",
+      "message": "Critico: Quota quasi esaurita per {{model}} ({{percent}}% rimanente)"
+    },
+    "quietHours": {
+      "active": "Avvisi soppressi durante l'orario silenzioso"
+    },
+    "snoozed": {
+      "until": "Avvisi posticipati fino alle {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 minuti",
+        "1hour": "1 ora",
+        "4hours": "4 ore",
+        "untilTomorrow": "Fino a domani"
+      },
+      "cleared": "Posticipo avvisi cancellato"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Orario Silenzioso",
+      "description": "Sopprime gli avvisi durante gli orari programmati"
+    },
+    "privacy": {
+      "title": "Privacy",
+      "telemetry": "Abilita Telemetria",
+      "telemetry.description": "Invia dati di utilizzo anonimi per aiutare a migliorare l'estensione",
+      "localOnly": "Modalità Solo Locale",
+      "localOnly.description": "Disabilita tutte le chiamate di rete eccetto per la tua istanza Antigravity"
+    }
+  },
+  "error": {
+    "connectionFailed": "Connessione all'istanza Antigravity non riuscita",
+    "authFailed": "Autenticazione non riuscita",
+    "dataFetchFailed": "Recupero dati quota non riuscito"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor를 시작하지 못했습니다.",
+    "privacyNotice": {
+      "title": "개인정보 고지",
+      "message": "K1 Antigravity Monitor는 확장 프로그램을 개선하기 위해 익명 사용 데이터를 수집합니다. 언제든지 설정에서 옵트아웃할 수 있습니다.",
+      "accept": "동의",
+      "decline": "거절"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "모델",
+      "remaining": "잔여",
+      "confidence": "신뢰도",
+      "updated": "업데이트됨",
+      "stale": "데이터가 오래되었을 수 있습니다",
+      "quietHours": "알림 비활성화 (조용한 시간 활성화됨)",
+      "snoozed": "알림 연기됨"
+    },
+    "warning": {
+      "stale": "⚹ 오래됨",
+      "calculating": "계산 중…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: 할당량 새로고침",
+      "label": "새로고침 중…"
+    },
+    "switchModel": {
+      "title": "K1: 모델 전환"
+    },
+    "togglePanel": {
+      "title": "K1: 패널 전환"
+    },
+    "showDiagnostics": {
+      "title": "K1: 진단 표시"
+    },
+    "snoozeAlerts": {
+      "title": "K1: 알림 연기"
+    },
+    "clearSnooze": {
+      "title": "K1: 알림 연기 해제"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "할당량 경고",
+      "message": "경고: {{model}}의 할당량이 부족합니다 ({{percent}}% 남음)"
+    },
+    "critical": {
+      "title": "할당량 심각",
+      "message": "심각: {{model}}의 할당량이 거의 소진되었습니다 ({{percent}}% 남음)"
+    },
+    "quietHours": {
+      "active": "조용한 시간 동안 알림이 비활성화됨"
+    },
+    "snoozed": {
+      "until": "{{time}}까지 알림이 연기됨"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15분",
+        "1hour": "1시간",
+        "4hours": "4시간",
+        "untilTomorrow": "내일까지"
+      },
+      "cleared": "알림 연기가 해제됨"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "조용한 시간",
+      "description": "예정된 시간 동안 알림 비활성화"
+    },
+    "privacy": {
+      "title": "개인정보",
+      "telemetry": "원격 분석 활성화",
+      "telemetry.description": "확장 프로그램 개선에 도움이 되도록 익명 사용 데이터 전송",
+      "localOnly": "로컬 전용 모드",
+      "localOnly.description": " Antigravity 인스턴스를 제외한 모든 네트워크 호출 비활성화"
+    }
+  },
+  "error": {
+    "connectionFailed": "Antigravity 인스턴스에 연결하지 못했습니다",
+    "authFailed": "인증 실패",
+    "dataFetchFailed": "할당량 데이터 가져오기 실패"
+  }
+}

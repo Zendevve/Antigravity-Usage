@@ -2,7 +2,7 @@
   "name": "k1-antigravity-monitor",
   "displayName": "K1 Antigravity Monitor",
   "description": "Monitor Antigravity quota and predict exhaustion with real-time status bar monitoring, smart alerts, and cross-platform support.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher": "zendevve",
   "license": "MIT",
   "repository": {
@@ -64,8 +64,46 @@
         "command": "k1.showDiagnostics",
         "title": "%commands.showDiagnostics.title%",
         "category": "K1"
+      },
+      {
+        "command": "k1.exportCSV",
+        "title": "Export to CSV",
+        "category": "K1"
+      },
+      {
+        "command": "k1.exportJSON",
+        "title": "Export to JSON",
+        "category": "K1"
+      },
+      {
+        "command": "k1.exportPDF",
+        "title": "Export Report (PDF)",
+        "category": "K1"
+      },
+      {
+        "command": "k1.showDashboard",
+        "title": "Show Dashboard",
+        "category": "K1"
       }
     ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "k1-antigravity",
+          "title": "K1 Antigravity",
+          "icon": "assets/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "k1-antigravity": [
+        {
+          "id": "k1-dashboard",
+          "name": "Dashboard",
+          "type": "webview"
+        }
+      ]
+    },
     "configuration": {
       "title": "K1 Antigravity Monitor",
       "properties": {
@@ -184,6 +222,36 @@
           "type": "boolean",
           "default": false,
           "description": "Disable all network calls except to your Antigravity instance."
+        },
+        "k1-antigravity.language": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "en",
+            "es",
+            "fr",
+            "de",
+            "ja",
+            "zh-CN",
+            "pt-BR",
+            "it",
+            "ko",
+            "ru",
+            "ar",
+            "hi"
+          ],
+          "default": "auto",
+          "description": "Language for the extension UI."
+        },
+        "k1-antigravity.rtlEnabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable right-to-left layout for RTL languages."
+        },
+        "k1-antigravity.highContrastEnabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable high contrast mode for accessibility."
         }
       }
     }
@@ -206,6 +274,10 @@
     "generate:i18n-keys": "ts-node scripts/generate-i18n-keys.ts",
     "check:bundle-size": "ts-node scripts/check-bundle-size.ts",
     "check:i18n": "ts-node scripts/check-i18n-completeness.ts",
+    "sync:translations": "ts-node scripts/sync-translations.ts check",
+    "sync:translations:push": "ts-node scripts/sync-translations.ts push",
+    "sync:translations:pull": "ts-node scripts/sync-translations.ts pull",
+    "sync:translations:status": "ts-node scripts/sync-translations.ts status",
     "mock:server": "ts-node scripts/mock-antigravity-server.ts",
     "package": "npm run build:prod && vsce package",
     "publish": "vsce publish"

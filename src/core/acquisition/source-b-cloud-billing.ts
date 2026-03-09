@@ -156,7 +156,7 @@ export class CloudBillingSource implements QuotaSource {
 
     let tokenUrl: string;
     let requestBody: Record<string, string>;
-    let headers: Record<string, string> = {
+    const headers: Record<string, string> = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 

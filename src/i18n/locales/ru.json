@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "Не удалось запустить K1 Antigravity Monitor.",
+    "privacyNotice": {
+      "title": "Уведомление о конфиденциальности",
+      "message": "K1 Antigravity Monitor собирает анонимные данные об использовании для улучшения расширения. Вы можете отказаться от этого в любое время в настройках.",
+      "accept": "Принять",
+      "decline": "Отклонить"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Модель",
+      "remaining": "Остаток",
+      "confidence": "Надёжность",
+      "updated": "Обновлено",
+      "stale": "Данные могут быть устаревшими",
+      "quietHours": "Оповещения отключены (тихий час активен)",
+      "snoozed": "Оповещения отложены"
+    },
+    "warning": {
+      "stale": "⚹ Устарело",
+      "calculating": "Расчёт…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Обновить квоту",
+      "label": "Обновление…"
+    },
+    "switchModel": {
+      "title": "K1: Сменить модель"
+    },
+    "togglePanel": {
+      "title": "K1: Переключить панель"
+    },
+    "showDiagnostics": {
+      "title": "K1: Показать диагностику"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Отложить оповещения"
+    },
+    "clearSnooze": {
+      "title": "K1: Отменить отложенные оповещения"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Предупреждение о квоте",
+      "message": "Предупреждение: низкая квота для {{model}} (осталось {{percent}}%)"
+    },
+    "critical": {
+      "title": "Квота критическая",
+      "message": "Критично: квота почти исчерпана для {{model}} (осталось {{percent}}%)"
+    },
+    "quietHours": {
+      "active": "Оповещения отключены во время тихого часа"
+    },
+    "snoozed": {
+      "until": "Оповещения отложены до {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 минут",
+        "1hour": "1 час",
+        "4hours": "4 часа",
+        "untilTomorrow": "До завтра"
+      },
+      "cleared": "Отложенные оповещения отменены"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Тихий час",
+      "description": "Отключить оповещения в запланированное время"
+    },
+    "privacy": {
+      "title": "Конфиденциальность",
+      "telemetry": "Включить телеметрию",
+      "telemetry.description": "Отправлять анонимные данные об использовании для улучшения расширения",
+      "localOnly": "Режим только локально",
+      "localOnly.description": "Отключить все сетевые вызовы, кроме как к вашему экземпляру Antigravity"
+    }
+  },
+  "error": {
+    "connectionFailed": "Не удалось подключиться к экземпляру Antigravity",
+    "authFailed": "Ошибка аутентификации",
+    "dataFetchFailed": "Не удалось получить данные о квоте"
+  }
+}

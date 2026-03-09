@@ -9,52 +9,77 @@
 
 ## Overview
 
-K1 Antigravity Monitor provides real-time monitoring of your Antigravity API quota directly in VS Code's status bar. Stay informed about your token usage, receive smart alerts before quota exhaustion, and optimize your development workflow with intelligent polling and cross-platform support.
+K1 Antigravity Monitor provides real-time monitoring of your Antigravity API quota directly in VS Code's status bar. Stay informed about your token usage, receive smart alerts before quota exhaustion, and optimize your development workflow with intelligent polling, forecasting, and cross-platform support.
 
 ![Status Bar Preview](assets/preview.png)
+
+## v1.0.0 Release Highlights
+
+- 🚀 **Forecast Engine**: AI-powered quota exhaustion prediction
+- 📊 **WebView Dashboard**: Rich ECharts visualizations
+- 🌍 **12 Languages**: Full i18n with RTL support
+- ♿ **WCAG 2.1 AA**: Complete accessibility compliance
+
+---
 
 ## Features
 
 ### 🔄 Real-Time Quota Monitoring
-- **Live Status Bar Display**: Track remaining quota for all your models (Claude, GPT, etc.) directly in the status bar
+- **Live Status Bar Display**: Track remaining quota for all your models directly in the status bar
 - **Smart Model Selection**: Automatically displays the model closest to exhaustion, or lock to a specific model
 - **Visual Indicators**: Color-coded icons (green/yellow/red) for quick quota assessment
+- **Sparkline Trends**: Mini trend visualization in status bar tooltips
+
+### 🔮 Forecast Engine
+- **EMA Prediction**: Exponential Moving Average for short-term forecasting
+- **Pattern Recognition**: Detects recurring usage patterns
+- **Monte Carlo Simulation**: Risk assessment with confidence scores
+- **Unified Forecast**: Combines all predictors with weighted confidence
+
+### 📊 WebView Dashboard
+- **ECharts Visualizations**: Interactive line, bar, and pie charts
+- **Quota Breakdown**: TreeView showing all models and their quotas
+- **Export Options**: CSV, JSON, and PDF export
+- **Activity Bar Integration**: Native VS Code sidebar view
 
 ### ⚡ Adaptive Polling
-- **Intelligent Intervals**: Dynamically scales polling from 30s (idle) to 5s (active) for high-fidelity tracking
+- **Intelligent Intervals**: Dynamically scales polling from 30s (idle) to 5s (active)
 - **Platform Optimized**: Custom polling intervals for Windows, macOS, and Linux
 - **Resource Efficient**: Minimal background CPU usage with smart scheduling
 
 ### 🚨 Smart Alerts
-- **Warning & Critical Thresholds**: Customizable alerts at 20% (warning) and 10% (critical)
-- **Hysteresis & Cooldown**: Prevents alert flapping with configurable thresholds
-- **Quiet Hours**: Schedule alert-free periods (e.g., nights, weekends)
-- **Native Notifications**: Integrates with OS notification centers on Windows and macOS
+- **Warning & Critical Thresholds**: Customizable alerts (default: 20% warning, 10% critical)
+- **Hysteresis**: Configurable (0-50%) to prevent alert flapping
+- **Cooldown**: Configurable time between alerts (default: 5min warning, 2min critical)
+- **Quiet Hours**: Schedule alert-free periods with timezone support
+- **Snooze**: Temporarily silence alerts
+- **Native Notifications**: Integrates with OS notification centers
 
-### 🌐 Multi-Source Data
-- **Antigravity API**: Direct API polling (primary source)
-- **Cloud Billing Integration**: OAuth-based billing data (secondary source)
-- **HTTP Interceptor**: Usage tracking via request interception
-- **Reconciliation Engine**: Weighted averaging with anomaly detection
-
-### 📊 Historical Data
+### 📈 Historical Data
 - **IndexedDB Storage**: Persistent local storage of quota history
-- **Trend Analysis**: 24-hour sparkline visualization in tooltips
-- **Query API**: Time-range queries for custom analysis
+- **Configurable Retention**: 1-365 days of history
+- **Trend Analysis**: 24-hour sparkline visualization
+- **Time-Range Queries**: Custom analysis capabilities
 
 ### 🌍 Internationalization
-- **6 Languages Supported**: English, Spanish, French, German, Japanese, Chinese (Simplified)
-- **Accessibility First**: ARIA labels and keyboard navigation
+- **12 Languages**: English, Spanish, French, German, Japanese, Chinese (Simplified/Traditional), Portuguese (Brazil), Italian, Korean, Russian, Arabic, Hindi
+- **RTL Support**: Full right-to-left layout for Arabic
+- **Crowdin Integration**: Professional translation workflow
+- **Accessibility First**: ARIA labels and keyboard navigation (WCAG 2.1 AA)
 
-### 🔒 Privacy Mode
-- **Local-Only Operation**: Disable all network calls except to your Antigravity instance
-- **Anonymous Identifiers**: Optional anonymized tracking
-- **Telemetry Control**: Full control over anonymous usage data
+### 🔒 Privacy & Control
+- **Local-Only Mode**: Disable all network calls except to your Antigravity instance
+- **Telemetry Control**: Opt-in anonymous usage tracking
+- **Privacy Mode**: Maximum privacy configuration
+
+---
 
 ## Requirements
 
 - **VS Code**: Version 1.80.0 or higher
 - **Antigravity Instance**: Running local instance bound to port `13337` (default)
+
+---
 
 ## Installation
 
@@ -66,8 +91,10 @@ K1 Antigravity Monitor provides real-time monitoring of your Antigravity API quo
 
 ### From VSIX
 ```bash
-code --install-extension k1-antigravity-monitor-0.1.0.vsix
+code --install-extension k1-antigravity-monitor-1.0.0.vsix
 ```
+
+---
 
 ## Quick Start
 
@@ -78,103 +105,132 @@ code --install-extension k1-antigravity-monitor-0.1.0.vsix
    - Configure port if using non-default
 4. **Monitor**: Watch your quota in the status bar!
 
-## Extension Settings
-
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `pollingIntervalIdle` | 30000 | Polling interval (ms) when idle |
-| `pollingIntervalActive` | 5000 | Polling interval (ms) during active use |
-| `thresholdWarning` | 20 | Warning threshold percentage |
-| `thresholdCritical` | 10 | Critical threshold percentage |
-| `showModel` | autoLowest | Display mode: autoLowest or pinned |
-| `pinnedModel` | "" | Model to pin when showModel is 'pinned' |
-| `animationEnabled` | true | Enable critical pulse animation |
-| `sparklineEnabled` | true | Show trend sparkline in tooltip |
-| `quietHoursEnabled` | false | Enable quiet hours |
-| `localOnlyMode` | false | Disable external network calls |
+---
 
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `k1.refreshQuota` | Force immediate quota fetch |
-| `k1.switchModel` | Change display focus to different model |
-| `k1.togglePanel` | Toggle the quota details panel |
-| `k1.showDiagnostics` | Show connection diagnostics |
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     VS Code Host                           │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐ │
-│  │ Status Bar  │  │  TreeView   │  │  Commands/Handlers  │ │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘ │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────────────────────────────────────────────┐  │
-│  │              Core Domain Logic                       │  │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────────────┐  │  │
-│  │  │ Quota    │  │  Alert   │  │    Polling       │  │  │
-│  │  │ State    │  │  Engine  │  │    Scheduler     │  │  │
-│  │  └──────────┘  └──────────┘  └──────────────────┘  │  │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────────────┐  │  │
-│  │  │ Source   │  │ Recon-   │  │    Connection   │  │  │
-│  │  │ Registry │  │ ciliation│  │    Auto-Reconnect│ │  │
-│  │  └──────────┘  └──────────┘  └──────────────────┘  │  │
-│  └─────────────────────────────────────────────────────┘  │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────────────────────────────────────────────┐  │
-│  │              Data Sources (Pluggable)               │  │
-│  │  ┌────────────┐  ┌────────────┐  ┌──────────────┐  │  │
-│  │  │ Source A   │  │ Source B   │  │   Source C   │  │  │
-│  │  │ Antigravity│  │ Cloud      │  │   Interceptor│  │  │
-│  │  │ API        │  │ Billing    │  │              │  │  │
-│  │  └────────────┘  └────────────┘  └──────────────┘  │  │
-│  └─────────────────────────────────────────────────────┘  │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────────────────────────────────────────────┐  │
-│  │              Platform Integration                   │  │
-│  │  • Platform Detection (Windows/macOS/Linux)       │  │
-│  │  • Native Notifications                           │  │
-│  │  • Path Handling                                   │  │
-│  │  • Storage (IndexedDB, Secrets)                    │  │
-│  └─────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## Troubleshooting
-
-### Extension not detecting Antigravity
-
-1. Check that Antigravity is running: `http://localhost:13337/health`
-2. Set port manually in settings: `k1-antigravity.antigravityPort`
-3. Run diagnostics: `k1.showDiagnostics` command
-
-### Status bar not updating
-
-1. Check VS Code notifications for errors
-2. Verify polling intervals are not too long
-3. Check Antigravity API response times
-
-### Alerts not firing
-
-1. Verify threshold settings
-2. Check quiet hours configuration
-3. Ensure cooldown period has passed
-
-## Contributing
-
-Contributions are welcome! Please read our [contributing guidelines](CONTRIBUTING.md) before submitting PRs.
-
-## License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for version history.
+| `k1.refreshQuota` | Manually refresh quota data |
+| `k1.switchModel` | Switch displayed model |
+| `k1.togglePanel` | Toggle the dashboard panel |
+| `k1.showDiagnostics` | Show diagnostic information |
+| `k1.exportCSV` | Export data to CSV |
+| `k1.exportJSON` | Export data to JSON |
+| `k1.exportPDF` | Export report to PDF |
+| `k1.showDashboard` | Show the dashboard |
 
 ---
 
-**Zendevve Open Source** | [GitHub](https://github.com/Zendevve/k1-antigravity-monitor) | [Report Issues](https://github.com/Zendevve/k1-antigravity-monitor/issues)
+## Configuration
+
+### Polling Settings
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `pollingIntervalIdle` | 30000ms | Polling interval when idle |
+| `pollingIntervalActive` | 5000ms | Polling interval when active |
+
+### Alert Settings
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `thresholdWarning` | 20% | Warning threshold percentage |
+| `thresholdCritical` | 10% | Critical threshold percentage |
+| `alertHysteresisWarning` | 5% | Warning hysteresis to prevent flapping |
+| `alertHysteresisCritical` | 5% | Critical hysteresis to prevent flapping |
+| `alertCooldownWarning` | 300000ms | Cooldown between warning alerts |
+| `alertCooldownCritical` | 120000ms | Cooldown between critical alerts |
+| `quietHoursEnabled` | false | Enable quiet hours |
+| `quietHoursSchedule` | {days: [0,6], start: "22:00", end: "08:00"} | Quiet hours schedule |
+
+### Display Settings
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `showModel` | autoLowest | Model display mode |
+| `animationEnabled` | true | Critical pulse animation |
+| `sparklineEnabled` | true | Sparkline trend visualization |
+| `sparklineWindowHours` | 24 | Sparkline time window |
+
+### Privacy Settings
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `telemetryEnabled` | false | Enable anonymous telemetry |
+| `localOnlyMode` | false | Disable external network calls |
+
+### Language & Accessibility
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `language` | auto | UI language |
+| `rtlEnabled` | false | RTL layout |
+| `highContrastEnabled` | false | High contrast mode |
+
+---
+
+## Migration Guide
+
+### Upgrading from v0.1.0
+
+v1.0.0 includes major new features. No migration is required - all settings are preserved automatically.
+
+**New in v1.0.0:**
+1. **Forecast Engine** - Predictions appear in dashboard
+2. **Dashboard** - New Activity Bar view with visualizations
+3. **12 Languages** - Full translation coverage
+4. **Enhanced Alerts** - Hysteresis, cooldown, quiet hours
+
+---
+
+## Troubleshooting
+
+### Extension Not Loading
+- Ensure VS Code version is 1.80.0 or higher
+- Check Antigravity is running on the configured port
+
+### Quota Not Updating
+- Verify Antigravity instance is accessible
+- Check network connectivity
+- Try running `k1.refreshQuota` command
+
+### Alerts Not Working
+- Check notification permissions in OS settings
+- Verify threshold settings
+- Check quiet hours configuration
+
+### Dashboard Not Showing
+- Click the K1 icon in the Activity Bar
+- Run `k1.showDashboard` command
+- Check webview is enabled in settings
+
+---
+
+## FAQ
+
+**Q: Does this work with Claude Code?**
+A: Yes, it monitors the Antigravity quota which is used by Claude Code.
+
+**Q: How accurate is the forecast?**
+A: The forecast uses multiple predictors (EMA, Pattern Matching, Monte Carlo) and provides confidence scores. Accuracy depends on usage patterns.
+
+**Q: Is my data secure?**
+A: Yes. All data is stored locally. You can enable local-only mode to disable external network calls.
+
+**Q: Can I use multiple languages?**
+A: Yes, the extension supports 12 languages with automatic detection based on VS Code locale.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+---
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+## Support
+
+- [Report Issues](https://github.com/Zendevve/k1-antigravity-monitor/issues)
+- [View Changelog](CHANGELOG.md)

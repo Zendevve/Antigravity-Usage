@@ -1,0 +1,52 @@
+# Crowdin Configuration for K1 Antigravity Monitor
+# Documentation: https://support.crowdin.com/configuration-file/
+
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_API_TOKEN
+
+# Preserve directory structure
+preserve_hierarchy: true
+
+# Source files configuration
+files:
+  # Main translation files
+  - source: /src/i18n/locales/en.json
+    translation: /src/i18n/locales/%two_letters_code%.json
+    languages_mapping:
+      two_letters_code:
+        # Map Crowdin language codes to project locale codes
+        pt-BR: pt-BR
+        zh-CN: zh-CN
+        zh-TW: zh-TW
+
+  # Exclude source file from translations
+    update_option: update_without_changes
+
+# Language mapping for Crowdin
+languages:
+  - en           # English
+  - es           # Spanish
+  - fr           # French
+  - de           # German
+  - ja           # Japanese
+  - zh-CN        # Chinese Simplified
+  - pt-BR        # Portuguese (Brazil)
+  - it           # Italian
+  - ko           # Korean
+  - ru           # Russian
+  - ar           # Arabic
+  - hi           # Hindi
+
+# Auto-approve suggestions
+auto_approve_imported: false
+
+# Export pattern for translations
+export_patterns:
+  - /%two_letters_code%.json
+
+# Notifications
+notifications:
+  - notify_crowdin_project_owner_about_pending_review
+
+# Branch configuration
+branch: main

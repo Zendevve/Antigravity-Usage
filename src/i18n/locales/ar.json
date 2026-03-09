@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "فشل تشغيل K1 Antigravity Monitor.",
+    "privacyNotice": {
+      "title": "إشعار الخصوصية",
+      "message": "يجمع K1 Antigravity Monitor بيانات استخدام مجهولة لتحسين الملحق. يمكنك إلغاء الاشتراك في أي وقت في الإعدادات.",
+      "accept": "قبول",
+      "decline": "رفض"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "النموذج",
+      "remaining": "المتبقي",
+      "confidence": "الثقة",
+      "updated": "تم التحديث",
+      "stale": "قد تكون البيانات قديمة",
+      "quietHours": "تم قمع التنبيهات (ساعات هادئة نشطة)",
+      "snoozed": "تم تأجيل التنبيهات"
+    },
+    "warning": {
+      "stale": "⚹ قديم",
+      "calculating": "جارٍ الحساب…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: تحديث الحصة",
+      "label": "جارٍ التحديث…"
+    },
+    "switchModel": {
+      "title": "K1: تبديل النموذج"
+    },
+    "togglePanel": {
+      "title": "K1: تبديل اللوحة"
+    },
+    "showDiagnostics": {
+      "title": "K1: عرض التشخيص"
+    },
+    "snoozeAlerts": {
+      "title": "K1: تأجيل التنبيهات"
+    },
+    "clearSnooze": {
+      "title": "K1: مسح تأجيل التنبيهات"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "تحذير الحصة",
+      "message": "تحذير: حصة منخفضة لـ {{model}} (متبقي {{percent}}%)"
+    },
+    "critical": {
+      "title": "حصة حرجة",
+      "message": "حرج: الحصة أوشكت على النفاد لـ {{model}} (متبقي {{percent}}%)"
+    },
+    "quietHours": {
+      "active": "تم قمع التنبيهات خلال ساعات هادئة"
+    },
+    "snoozed": {
+      "until": "تم تأجيل التنبيهات حتى {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 دقيقة",
+        "1hour": "ساعة واحدة",
+        "4hours": "4 ساعات",
+        "untilTomorrow": "حتى الغد"
+      },
+      "cleared": "تم مسح تأجيل التنبيهات"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "ساعات هادئة",
+      "description": "قمع التنبيهات خلال الأوقات المجدولة"
+    },
+    "privacy": {
+      "title": "الخصوصية",
+      "telemetry": "تفعيل القياس عن بعد",
+      "telemetry.description": "إرسال بيانات استخدام مجهولة لمساعدة تحسين الملحق",
+      "localOnly": "وضع المحلي فقط",
+      "localOnly.description": "تعطيل جميع استدعاءات الشبكة باستثناء المثيل الخاص بك من Antigravity"
+    }
+  },
+  "error": {
+    "connectionFailed": "فشل الاتصال بمثيل Antigravity",
+    "authFailed": "فشل المصادقة",
+    "dataFetchFailed": "فشل جلب بيانات الحصة"
+  }
+}

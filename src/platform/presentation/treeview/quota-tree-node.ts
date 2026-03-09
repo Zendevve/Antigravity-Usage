@@ -71,13 +71,13 @@ export function treeNodeToTreeItem(node: QuotaTreeNode): TreeItem {
  */
 function getQuotaIcon(percent: number): ThemeIcon {
   if (percent <= 10) {
-    return new ThemeIcon('error', new ThemeIcon.Color('charts.red'));
+    return new ThemeIcon('error');
   } else if (percent <= 20) {
-    return new ThemeIcon('warning', new ThemeIcon.Color('charts.orange'));
+    return new ThemeIcon('warning');
   } else if (percent <= 50) {
-    return new ThemeIcon('info', new ThemeIcon.Color('charts.yellow'));
+    return new ThemeIcon('info');
   }
-  return new ThemeIcon('check', new ThemeIcon.Color('charts.green'));
+  return new ThemeIcon('check');
 }
 
 /**

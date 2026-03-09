@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor falhou ao iniciar.",
+    "privacyNotice": {
+      "title": "Aviso de Privacidade",
+      "message": "K1 Antigravity Monitor coleta dados anônimos de uso para melhorar a extensão. Você pode Opt-out a qualquer momento nas configurações.",
+      "accept": "Aceitar",
+      "decline": "Recusar"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Modelo",
+      "remaining": "Restante",
+      "confidence": "Confiança",
+      "updated": "Atualizado",
+      "stale": "Os dados podem estar desatualizados",
+      "quietHours": "Alertas suprimidos (horário silencioso ativo)",
+      "snoozed": "Alertas adiados"
+    },
+    "warning": {
+      "stale": "⚹ Desatualizado",
+      "calculating": "Calculando…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Atualizar Cota",
+      "label": "Atualizando…"
+    },
+    "switchModel": {
+      "title": "K1: Trocar Modelo"
+    },
+    "togglePanel": {
+      "title": "K1: Alternar Painel"
+    },
+    "showDiagnostics": {
+      "title": "K1: Mostrar Diagnósticos"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Adiar Alertas"
+    },
+    "clearSnooze": {
+      "title": "K1: Limpar Adiar Alertas"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Aviso de Cota",
+      "message": "Aviso: Cota baixa para {{model}} ({{percent}}% restante)"
+    },
+    "critical": {
+      "title": "Cota Crítica",
+      "message": "Crítico: Cota quase esgotada para {{model}} ({{percent}}% restante)"
+    },
+    "quietHours": {
+      "active": "Alertas suprimidos durante horário silencioso"
+    },
+    "snoozed": {
+      "until": "Alertas adiados até {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 minutos",
+        "1hour": "1 hora",
+        "4hours": "4 horas",
+        "untilTomorrow": "Até amanhã"
+      },
+      "cleared": "Adiar alertas limpo"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Horário Silencioso",
+      "description": "Suprimir alertas durante horários programados"
+    },
+    "privacy": {
+      "title": "Privacidade",
+      "telemetry": "Habilitar Telemetria",
+      "telemetry.description": "Enviar dados anônimos de uso para ajudar a melhorar a extensão",
+      "localOnly": "Modo Apenas Local",
+      "localOnly.description": "Desabilitar todas as chamadas de rede exceto para sua instância Antigravity"
+    }
+  },
+  "error": {
+    "connectionFailed": "Falha ao conectar à instância Antigravity",
+    "authFailed": "Falha na autenticação",
+    "dataFetchFailed": "Falha ao buscar dados de cota"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor शुरू करने में विफल।",
+    "privacyNotice": {
+      "title": "गोपनीयता सूचना",
+      "message": "K1 Antigravity Monitor एक्सटेंशन को बेहतर बनाने के लिए अज्ञात उपयोग डेटा एकत्र करता है। आप कभी भी सेटिंग्स में ऑप्ट-आउट कर सकते हैं।",
+      "accept": "स्वीकार करें",
+      "decline": "अस्वीकार करें"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "मॉडल",
+      "remaining": "शेष",
+      "confidence": "विश्वास",
+      "updated": "अपडेट किया गया",
+      "stale": "डेटा पुराना हो सकता है",
+      "quietHours": "अलर्ट दबाए गए (शांत समय सक्रिय)",
+      "snoozed": "अलर्ट स्नूज़ किए गए"
+    },
+    "warning": {
+      "stale": "⚹ पुराना",
+      "calculating": "गणना हो रही है…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: कोटा रिफ्रेश करें",
+      "label": "रिफ्रेश हो रहा है…"
+    },
+    "switchModel": {
+      "title": "K1: मॉडल बदलें"
+    },
+    "togglePanel": {
+      "title": "K1: पैनल टॉगल करें"
+    },
+    "showDiagnostics": {
+      "title": "K1: डायग्नोस्टिक्स दिखाएं"
+    },
+    "snoozeAlerts": {
+      "title": "K1: अलर्ट स्नूज़ करें"
+    },
+    "clearSnooze": {
+      "title": "K1: स्नूज़ साफ़ करें"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "कोटा चेतावनी",
+      "message": "चेतावनी: {{model}} के लिए कोटा कम है ({{percent}}% शेष)"
+    },
+    "critical": {
+      "title": "कोटा गंभीर",
+      "message": "गंभीर: {{model}} के लिए कोटा लगभग समाप्त ({{percent}}% शेष)"
+    },
+    "quietHours": {
+      "active": "शांत समय के दौरान अलर्ट दबाए गए"
+    },
+    "snoozed": {
+      "until": "{{time}} तक अलर्ट स्नूज़ किए गए"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 मिनट",
+        "1hour": "1 घंटा",
+        "4hours": "4 घंटे",
+        "untilTomorrow": "कल तक"
+      },
+      "cleared": "अलर्ट स्नूज़ साफ़ किया गया"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "शांत समय",
+      "description": "निर्धारित समय के दौरान अलर्ट दबाएं"
+    },
+    "privacy": {
+      "title": "गोपनीयता",
+      "telemetry": "टेलीमेट्री सक्षम करें",
+      "telemetry.description": "एक्सटेंशन को बेहतर बनाने में मदद के लिए अज्ञात उपयोग डेटा भेजें",
+      "localOnly": "केवल स्थानीय मोड",
+      "localOnly.description": "अपने Antigravity इंस्टेंस को छोड़कर सभी नेटवर्क कॉल अक्षम करें"
+    }
+  },
+  "error": {
+    "connectionFailed": "Antigravity इंस्टेंस से कनेक्ट करने में विफल",
+    "authFailed": "प्रमाणीकरण विफल",
+    "dataFetchFailed": "कोटा डेटा प्राप्त करने में विफल"
+  }
+}

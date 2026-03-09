@@ -1,0 +1,167 @@
+/**
+ * RTL (Right-to-Left) Styles for K1 Antigravity Dashboard
+ * These styles mirror the layout for RTL languages like Arabic
+ */
+
+/* Base RTL configuration */
+:root {
+  --direction: ltr;
+  --text-align: left;
+  --flex-direction: row;
+  --margin-inline-start: margin-left;
+  --margin-inline-end: margin-right;
+  --padding-inline-start: padding-left;
+  --padding-inline-end: padding-right;
+  --border-inline-start: border-left;
+  --border-inline-end: border-right;
+}
+
+/* RTL direction attribute */
+[dir="rtl"] {
+  --direction: rtl;
+  --text-align: right;
+  --flex-direction: row-reverse;
+  --margin-inline-start: margin-right;
+  --margin-inline-end: margin-left;
+  --padding-inline-start: padding-right;
+  --padding-inline-end: padding-left;
+  --border-inline-start: border-right;
+  --border-inline-end: border-left;
+}
+
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+/* Flexbox RTL utilities */
+.rtl-flip {
+  flex-direction: var(--flex-direction);
+}
+
+/* Text alignment RTL */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Margin RTL utilities */
+[dir="rtl"] .ml-auto {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+[dir="rtl"] .mr-auto {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+/* Icon flip for directional icons */
+[dir="rtl"] .icon-flip {
+  transform: scaleX(-1);
+}
+
+/* Arrow direction utilities */
+[dir="rtl"] .arrow-right::before {
+  content: '←';
+}
+
+[dir="rtl"] .arrow-left::before {
+  content: '→';
+}
+
+/* Grid RTL support */
+[dir="rtl"] .grid {
+  direction: rtl;
+}
+
+/* Card RTL */
+[dir="rtl"] .card {
+  text-align: right;
+}
+
+/* Header RTL */
+[dir="rtl"] .header {
+  flex-direction: row-reverse;
+}
+
+/* Status indicator RTL */
+[dir="rtl"] .status-indicator {
+  flex-direction: row-reverse;
+}
+
+/* Actions RTL */
+[dir="rtl"] .actions {
+  flex-direction: row-reverse;
+}
+
+/* Tabs RTL */
+[dir="rtl"] .tabs {
+  flex-direction: row-reverse;
+}
+
+/* Chart grid RTL - ECharts specific override */
+[dir="rtl"] .chart-container .echarts-tooltip {
+  direction: rtl;
+}
+
+/* Button RTL */
+[dir="rtl"] .btn {
+  direction: rtl;
+}
+
+/* High contrast mode support */
+:root.high-contrast {
+  --bg-primary: #000000;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --accent-blue: #3b9eff;
+  --accent-green: #4ec9b0;
+  --accent-yellow: #dcdcaa;
+  --accent-red: #f14c4c;
+  --accent-orange: #ce9178;
+}
+
+/* High contrast border */
+.high-contrast .card,
+.high-contrast .header,
+.high-contrast .btn {
+  border-width: 2px;
+  border-color: #ffffff;
+}
+
+/* Focus indicators for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent-blue);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+[dir="rtl"] .skip-link {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .skip-link:focus {
+  left: auto;
+  right: 0;
+}

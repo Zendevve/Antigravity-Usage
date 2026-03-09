@@ -13,7 +13,7 @@ import { log } from '../../../util/logger';
  * TreeDataProvider for quota breakdown TreeView
  */
 export class QuotaTreeViewProvider implements vscode.TreeDataProvider<QuotaTreeNode> {
-  private _onDidChangeTreeData = new EventEmitter<vscode.TreeView<QuotaTreeNode> | undefined | void>();
+  private _onDidChangeTreeData = new EventEmitter<void | QuotaTreeNode | QuotaTreeNode[] | null | undefined>();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
   private rootNode: QuotaTreeNode;
@@ -24,10 +24,9 @@ export class QuotaTreeViewProvider implements vscode.TreeDataProvider<QuotaTreeN
     this.rootNode = this.buildEmptyState();
 
     // Register TreeView
-    const treeView = vscode.window.createTreeView('k1-antigravity.quotaBreakdown', {
+    const treeView = vscode.window.createTreeView<QuotaTreeNode>('k1-antigravity.quotaBreakdown', {
       treeDataProvider: this,
       showCollapseAll: true,
-      multiSelect: false,
     });
 
     // Register context menu commands
