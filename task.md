@@ -6,8 +6,8 @@
 
 | Property | Value |
 |----------|-------|
-| **Current Sprint** | Sprint 11 |
-| **Current Phase** | Phase 3: Advanced Release |
+| **Current Sprint** | Sprint 14 |
+| **Current Phase** | Phase 4: Ecosystem |
 | **Version** | v0.1.0 → v1.1.0 |
 | **Release Date (target)** | TBD |
 | **Phase Status** | 🟡 In Progress |
@@ -303,26 +303,26 @@
 > **Timeline**: Week 13 | **Theme**: Developer extensibility
 
 #### 🎯 Core Features
-- [ ] Expose events: quotaUpdated, alertTriggered, sourceChanged [L] (8 pts) - PREREQ: None
-- [ ] Expose commands: getQuota, getForecast, setAlert [M] (5 pts) - PREREQ: None
+- [x] Expose events: quotaUpdated, alertTriggered, sourceChanged [L] (8 pts) - PREREQ: None
+- [x] Expose commands: getQuota, getForecast, setAlert [M] (5 pts) - PREREQ: None
 - [ ] Create third-party integration documentation [L] (8 pts) - PREREQ: API
-- [ ] Implement API TypeScript definitions [M] (5 pts) - PREREQ: API
+- [x] Implement API TypeScript definitions [M] (5 pts) - PREREQ: API
 - [ ] Build API explorer in extension [S] (2 pts) - PREREQ: API
 
 #### 🔧 Infrastructure
-- [ ] Implement configurable HTTP callbacks (webhooks) [L] (8 pts) - PREREQ: None
-- [ ] Add quota threshold event triggers [M] (5 pts) - PREREQ: Webhooks
-- [ ] Create custom payload templates [M] (5 pts) - PREREQ: Webhooks
-- [ ] Implement webhook retry with exponential backoff [M] (5 pts) - PREREQ: Webhooks
+- [x] Implement configurable HTTP callbacks (webhooks) [L] (8 pts) - PREREQ: None
+- [x] Add quota threshold event triggers [M] (5 pts) - PREREQ: Webhooks
+- [x] Create custom payload templates [M] (5 pts) - PREREQ: Webhooks
+- [x] Implement webhook retry with exponential backoff [M] (5 pts) - PREREQ: Webhooks
 - [ ] Add webhook testing utility [S] (2 pts) - PREREQ: Webhooks
-- [ ] Implement Express server for local queries [L] (8 pts) - PREREQ: None
-- [ ] Add authentication layer [M] (5 pts) - PREREQ: REST API
-- [ ] Create OpenAPI 3.0 specification [M] (5 pts) - PREREQ: REST API
-- [ ] Implement REST endpoints for quota data [M] (5 pts) - PREREQ: REST API
-- [ ] Add rate limiting and security headers [S] (2 pts) - PREREQ: REST API
+- [x] Implement Express server for local queries [L] (8 pts) - PREREQ: None
+- [x] Add authentication layer [M] (5 pts) - PREREQ: REST API
+- [x] Create OpenAPI 3.0 specification [M] (5 pts) - PREREQ: REST API
+- [x] Implement REST endpoints for quota data [M] (5 pts) - PREREQ: REST API
+- [x] Add rate limiting and security headers [S] (2 pts) - PREREQ: REST API
 
 #### 🧪 Testing
-- [ ] Write integration tests for public API [L] (8 pts) - PREREQ: API
+- [x] Write integration tests for public API [L] (8 pts) - PREREQ: API
 
 ---
 
@@ -331,19 +331,19 @@
 > **Timeline**: Week 14 | **Theme**: Team collaboration
 
 #### 🎯 Core Features
-- [ ] Implement shared quota tracking across team members [L] (8 pts) - PREREQ: API
-- [ ] Create pool allocation visualization [M] (5 pts) - PREREQ: Team pools
-- [ ] Add member usage breakdown view [M] (5 pts) - PREREQ: Team pools
-- [ ] Implement pool alert thresholds [M] (5 pts) - PREREQ: Team pools
-- [ ] Design pool management UI [L] (8 pts) - PREREQ: Team pools
-- [ ] Deploy cloud-hosted reference implementation [L] (8 pts) - PREREQ: None
-- [ ] Implement team management endpoints [M] (5 pts) - PREREQ: Backend
-- [ ] Add billing integration hooks [M] (5 pts) - PREREQ: Backend
-- [ ] Create team dashboard [L] (8 pts) - PREREQ: Backend
-- [ ] Implement usage reporting and analytics [M] (5 pts) - PREREQ: Backend
+- [x] Implement shared quota tracking across team members [L] (8 pts) - PREREQ: API
+- [x] Create pool allocation visualization [M] (5 pts) - PREREQ: Team pools
+- [x] Add member usage breakdown view [M] (5 pts) - PREREQ: Team pools
+- [x] Implement pool alert thresholds [M] (5 pts) - PREREQ: Team pools
+- [x] Design pool management UI [L] (8 pts) - PREREQ: Team pools
+- [x] Deploy cloud-hosted reference implementation [L] (8 pts) - PREREQ: None
+- [x] Implement team management endpoints [M] (5 pts) - PREREQ: Backend
+- [x] Add billing integration hooks [M] (5 pts) - PREREQ: Backend
+- [x] Create team dashboard [L] (8 pts) - PREREQ: Backend
+- [x] Implement usage reporting and analytics [M] (5 pts) - PREREQ: Backend
 
 #### 🧪 Testing
-- [ ] Write integration tests for team pools [L] (8 pts) - PREREQ: Team pools
+- [x] Write integration tests for team pools [L] (8 pts) - PREREQ: Team pools
 
 ---
 

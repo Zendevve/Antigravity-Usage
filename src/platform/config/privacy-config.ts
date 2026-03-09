@@ -10,6 +10,17 @@ export interface PrivacyConfig {
 }
 
 /**
+ * API security configuration
+ */
+export interface APISecurityConfig {
+  apiEnabled: boolean;
+  restApiEnabled: boolean;
+  restApiPort: number;
+  apiKey: string | null;
+  webhookEnabled: boolean;
+}
+
+/**
  * Privacy settings keys for VSCode configuration
  */
 export const PRIVACY_SETTINGS = {
@@ -17,6 +28,8 @@ export const PRIVACY_SETTINGS = {
   LOCAL_ONLY_MODE: 'k1-antigravity.localOnlyMode',
   ANONYMIZED_ID: 'k1-antigravity.anonymizedId',
   PRIVACY_NOTICE_SHOWN: 'k1-antigravity.privacyNoticeShown',
+  // API Keys (stored in secrets)
+  API_KEY: 'k1-antigravity.apiKey',
 } as const;
 
 /**
@@ -25,6 +38,7 @@ export const PRIVACY_SETTINGS = {
 export class PrivacyManager {
   private context: vscode.ExtensionContext;
   private config: PrivacyConfig | null = null;
+  private apiConfig: APISecurityConfig | null = null;
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
@@ -124,6 +138,82 @@ export class PrivacyManager {
    */
   public async markPrivacyNoticeShown(): Promise<void> {
     await this.context.globalState.update(PRIVACY_SETTINGS.PRIVACY_NOTICE_SHOWN, true);
+  }
+
+  /**
+   * Initialize API security configuration
+   */
+  public async initializeAPISecurity(): Promise<APISecurityConfig> {
+    const wsConfig = vscode.workspace.getConfiguration('k1-antigravity');
+
+    // Get API key from secure storage
+    let apiKey = await this.context.secrets.get(PRIVACY_SETTINGS.API_KEY);
+
+    // Generate a new API key if none exists
+    if (!apiKey) {
+      apiKey = this.generateSecureKey();
+      await this.context.secrets.store(PRIVACY_SETTINGS.API_KEY, apiKey);
+    }
+
+    this.apiConfig = {
+      apiEnabled: wsConfig.get<boolean>('apiEnabled', false),
+      restApiEnabled: wsConfig.get<boolean>('restApiEnabled', false),
+      restApiPort: wsConfig.get<number>('restApiPort', 13338),
+      apiKey,
+      webhookEnabled: wsConfig.get<boolean>('webhookEnabled', false),
+    };
+
+    return this.apiConfig;
+  }
+
+  /**
+   * Get API security configuration
+   */
+  public getAPISecurityConfig(): APISecurityConfig {
+    if (!this.apiConfig) {
+      throw new Error('APISecurityConfig not initialized. Call initializeAPISecurity() first.');
+    }
+    return this.apiConfig;
+  }
+
+  /**
+   * Regenerate API key
+   */
+  public async regenerateAPIKey(): Promise<string> {
+    const newKey = this.generateSecureKey();
+    await this.context.secrets.store(PRIVACY_SETTINGS.API_KEY, newKey);
+
+    if (this.apiConfig) {
+      this.apiConfig.apiKey = newKey;
+    }
+
+    return newKey;
+  }
+
+  /**
+   * Check if REST API is enabled
+   */
+  public isRESTApiEnabled(): boolean {
+    return this.apiConfig?.restApiEnabled ?? false;
+  }
+
+  /**
+   * Check if webhooks are enabled
+   */
+  public areWebhooksEnabled(): boolean {
+    return this.apiConfig?.webhookEnabled ?? false;
+  }
+
+  /**
+   * Generate a secure random API key
+   */
+  private generateSecureKey(): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let key = 'k1_';
+    for (let i = 0; i < 32; i++) {
+      key += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return key;
   }
 
   /**

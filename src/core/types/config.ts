@@ -33,5 +33,10 @@ export const ConfigSchema = z.object({
   // Sprint 7: Privacy settings
   telemetryEnabled: z.boolean().default(false),
   localOnlyMode: z.boolean().default(false),
+  // Sprint 13: API and Webhook settings
+  apiEnabled: z.boolean().default(false),
+  restApiEnabled: z.boolean().default(false),
+  restApiPort: z.number().min(1024).max(65535).default(13338),
+  webhookEnabled: z.boolean().default(false),
 });
 export type Config = z.infer<typeof ConfigSchema>;

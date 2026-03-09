@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor başlatılamadı.",
+    "privacyNotice": {
+      "title": "Gizlilik Bildirimi",
+      "message": "K1 Antigravity Monitor, uzantıyı geliştirmek için anonim kullanım verileri toplar. İstediğiniz zaman ayarlardan vazgeçebilirsiniz.",
+      "accept": "Kabul Et",
+      "decline": "Reddet"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Model",
+      "remaining": "Kalan",
+      "confidence": "Güven",
+      "updated": "Güncellendi",
+      "stale": "Veriler güncel olmayabilir",
+      "quietHours": "Uyarılar bastırıldı (sessiz saatler aktif)",
+      "snoozed": "Uyarılar ertelendi"
+    },
+    "warning": {
+      "stale": "⚠ Güncel değil",
+      "calculating": "Hesaplanıyor…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Kotayı Yenile",
+      "label": "Yenileniyor…"
+    },
+    "switchModel": {
+      "title": "K1: Model Değiştir"
+    },
+    "togglePanel": {
+      "title": "K1: Paneli Aç/Kapat"
+    },
+    "showDiagnostics": {
+      "title": "K1: Tanıları Göster"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Uyarıları Ertele"
+    },
+    "clearSnooze": {
+      "title": "K1: Erteleme İptal Et"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Kota Uyarısı",
+      "message": "Uyarı: {{model}} için kota düşük (%{{percent}} kaldı)"
+    },
+    "critical": {
+      "title": "Kota Kritik",
+      "message": "Kritik: {{model}} için kota neredeyse tükendi (%{{percent}} kaldı)"
+    },
+    "quietHours": {
+      "active": "Sessiz saatlerde uyarılar bastırıldı"
+    },
+    "snoozed": {
+      "until": "Uyarılar {{time}}'e kadar ertelendi"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 dakika",
+        "1hour": "1 saat",
+        "4hours": "4 saat",
+        "untilTomorrow": "Yarına kadar"
+      },
+      "cleared": "Uyarı ertelemesi iptal edildi"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Sessiz Saatler",
+      "description": "Planlanan saatlerde uyarıları bastır"
+    },
+    "privacy": {
+      "title": "Gizlilik",
+      "telemetry": "Telemetriyi Etkinleştir",
+      "telemetry.description": "Uzantıyı geliştirmeye yardımcı olmak için anonim kullanım verileri gönder",
+      "localOnly": "Yalnızca Yerel Modu",
+      "localOnly.description": "Antigravity örneğiniz dışındaki tüm ağ çağrılarını devre dışı bırak"
+    }
+  },
+  "error": {
+    "connectionFailed": "Antigravity örneğine bağlanılamadı",
+    "authFailed": "Kimlik doğrulama başarısız oldu",
+    "dataFetchFailed": "Kota verileri alınamadı"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor nie mógł się uruchomić.",
+    "privacyNotice": {
+      "title": "Informacja o prywatności",
+      "message": "K1 Antigravity Monitor zbiera anonimowe dane o użyciu, aby ulepszyć rozszerzenie. Możesz zrezygnować w dowolnym momencie w ustawieniach.",
+      "accept": "Akceptuj",
+      "decline": "Odmów"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Model",
+      "remaining": "Pozostało",
+      "confidence": "Zaufanie",
+      "updated": "Zaktualizowane",
+      "stale": "Dane mogą być nieaktualne",
+      "quietHours": "Alerty wyciszone (godziny ciszy aktywne)",
+      "snoozed": "Alerty odłożone"
+    },
+    "warning": {
+      "stale": "⚠ Nieaktualne",
+      "calculating": "Obliczanie…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Odśwież Limit",
+      "label": "Odświeżanie…"
+    },
+    "switchModel": {
+      "title": "K1: Zmień Model"
+    },
+    "togglePanel": {
+      "title": "K1: Przełącz Panel"
+    },
+    "showDiagnostics": {
+      "title": "K1: Pokaż Diagnostykę"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Uśpij Alerty"
+    },
+    "clearSnooze": {
+      "title": "K1: Wyczyść Uśpienie"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Ostrzeżenie o Limicie",
+      "message": "Ostrzeżenie: Niski limit dla {{model}} (pozostało {{percent}}%)"
+    },
+    "critical": {
+      "title": "Krytyczny Limit",
+      "message": "Krytyczne: Limit niemal wyczerpany dla {{model}} (pozostało {{percent}}%)"
+    },
+    "quietHours": {
+      "active": "Alerty wyciszone podczas godzin ciszy"
+    },
+    "snoozed": {
+      "until": "Alerty odłożone do {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 minut",
+        "1hour": "1 godzina",
+        "4hours": "4 godziny",
+        "untilTomorrow": "Do jutra"
+      },
+      "cleared": "Uśpienie alertów wyczyszczone"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Godziny Ciszy",
+      "description": "Wycisz alerty w zaplanowanych godzinach"
+    },
+    "privacy": {
+      "title": "Prywatność",
+      "telemetry": "Włącz Telemetrię",
+      "telemetry.description": "Wysyłaj anonimowe dane o użyciu, aby pomóc ulepszyć rozszerzenie",
+      "localOnly": "Tryb Tylko Lokalny",
+      "localOnly.description": "Wyłącz wszystkie wywołania sieciowe z wyjątkiem Twojej instancji Antigravity"
+    }
+  },
+  "error": {
+    "connectionFailed": "Nie można połączyć się z instancją Antigravity",
+    "authFailed": "Uwierzytelnianie nie powiodło się",
+    "dataFetchFailed": "Nie można pobrać danych o limicie"
+  }
+}

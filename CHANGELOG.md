@@ -2,6 +2,54 @@
 
 All notable changes to the "k1-antigravity-monitor" extension will be documented in this file.
 
+## [v1.1.0] - 2026-03-09
+
+### 🚀 Major Features
+
+#### Community Translations (Sprint 15)
+- **Crowdin Integration**: Enhanced translation workflow with quality checks
+- **Translation Quality Scoring**: Automated quality metrics (completeness, accuracy, consistency)
+- **16 Languages Supported**: Added Dutch (nl), Polish (pl), Turkish (tr), Swedish (sv)
+- **Glossary**: Consistent terminology across all translations
+
+#### Onboarding & Tutorial (Sprint 15)
+- **First-Run Wizard**: Guided setup for new users with welcome, connect, configure, and alert steps
+- **Interactive Tutorials**: Step-by-step guides for Quick Start, Forecasting, Alerts, and Export
+- **Sample Data Generator**: Generate realistic demo data for presentations and testing
+- **Demo Mode**: Quick sample data generation for various scenarios
+
+### Added
+
+#### Onboarding
+- Welcome screen with feature highlights
+- Quick setup wizard (Connect → Configure → Alerts)
+- Optional Antigravity instance connection
+- Configurable alert thresholds
+
+#### Tutorial System
+- Quick Start Guide tutorial
+- Forecasting tutorial
+- Alerts configuration tutorial
+- Export data tutorial
+- Interactive tooltips and highlights
+
+#### Sample Data
+- Configurable sample data generator
+- Multiple usage patterns (steady, burst, growing, variable)
+- Forecast simulation (EMA, Pattern, Monte Carlo)
+- Team quota sample data
+
+### Changed
+- Updated language configuration in package.json to include 4 new languages
+- Enhanced i18n setup to support 16 languages
+- Improved translation quality checks
+
+### Fixed
+- TypeScript compilation improvements
+- JSON import path corrections
+
+---
+
 ## [v1.0.0] - 2026-03-09
 
 ### 🚀 Major Features

@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor kunde inte starta.",
+    "privacyNotice": {
+      "title": "Integritetsmeddelande",
+      "message": "K1 Antigravity Monitor samlar in anonym användningsdata för att förbättra tillägget. Du kan när som helst avanmäla dig i inställningarna.",
+      "accept": "Acceptera",
+      "decline": "Avböj"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Modell",
+      "remaining": "Återstående",
+      "confidence": "Tillit",
+      "updated": "Uppdaterad",
+      "stale": "Data kan vara föråldrad",
+      "quietHours": "Aviseringar undertryckta (tysta timmar aktiva)",
+      "snoozed": "Aviseringar uppskjutna"
+    },
+    "warning": {
+      "stale": "⚠ Föråldrad",
+      "calculating": "Beräknar…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Uppdatera Kvot",
+      "label": "Uppdaterar…"
+    },
+    "switchModel": {
+      "title": "K1: Byt Modell"
+    },
+    "togglePanel": {
+      "title": "K1: Växla Panel"
+    },
+    "showDiagnostics": {
+      "title": "K1: Visa Diagnostik"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Snooza Aviseringar"
+    },
+    "clearSnooze": {
+      "title": "K1: Rensa Snooze"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Kvot Varning",
+      "message": "Varning: Låg kvot för {{model}} ({{percent}}% återstår)"
+    },
+    "critical": {
+      "title": "Kvot Kritisk",
+      "message": "Kritisk: Kvot nästan uttömd för {{model}} ({{percent}}% återstår)"
+    },
+    "quietHours": {
+      "active": "Aviseringar undertryckta under tysta timmar"
+    },
+    "snoozed": {
+      "until": "Aviseringar uppskjutna till {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 minuter",
+        "1hour": "1 timme",
+        "4hours": "4 timmar",
+        "untilTomorrow": "Till imorgon"
+      },
+      "cleared": "Avisering snooze rensad"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Tysta Timmar",
+      "description": "Undertryck aviseringar under schemalagda tider"
+    },
+    "privacy": {
+      "title": "Integritet",
+      "telemetry": "Aktivera Telemetri",
+      "telemetry.description": "Skicka anonym användningsdata för att förbättra tillägget",
+      "localOnly": "Lokalt Endast Läge",
+      "localOnly.description": "Inaktivera alla nätverksanrop förutom till din Antigravity-instans"
+    }
+  },
+  "error": {
+    "connectionFailed": "Kunde inte ansluta till Antigravity-instans",
+    "authFailed": "Autentisering misslyckades",
+    "dataFetchFailed": "Kunde inte hämta kvotdata"
+  }
+}

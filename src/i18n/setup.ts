@@ -12,6 +12,11 @@ import ko from './locales/ko.json';
 import ru from './locales/ru.json';
 import ar from './locales/ar.json';
 import hi from './locales/hi.json';
+// New languages for v1.1.0
+import nl from './locales/nl.json';
+import pl from './locales/pl.json';
+import tr from './locales/tr.json';
+import sv from './locales/sv.json';
 import { I18nKey } from './keys';
 
 /**
@@ -30,6 +35,11 @@ export const SUPPORTED_LANGUAGES = {
   ru: 'Русский',
   ar: 'العربية',
   hi: 'हिन्दी',
+  // New languages for v1.1.0
+  nl: 'Nederlands',
+  pl: 'Polski',
+  tr: 'Türkçe',
+  sv: 'Svenska',
 } as const;
 
 export type SupportedLanguage = keyof typeof SUPPORTED_LANGUAGES;
@@ -146,6 +156,11 @@ export async function initI18n(): Promise<void> {
       ru: { translation: ru },
       ar: { translation: ar },
       hi: { translation: hi },
+      // New languages for v1.1.0
+      nl: { translation: nl },
+      pl: { translation: pl },
+      tr: { translation: tr },
+      sv: { translation: sv },
     },
     interpolation: { escapeValue: false },
   });
@@ -204,6 +219,10 @@ export function getDateFormat(locale: SupportedLanguage): Intl.DateTimeFormatOpt
     ru: { year: 'numeric', month: 'short', day: 'numeric' },
     ar: { year: 'numeric', month: 'short', day: 'numeric' },
     hi: { year: 'numeric', month: 'short', day: 'numeric' },
+    nl: { year: 'numeric', month: 'short', day: 'numeric' },
+    pl: { year: 'numeric', month: 'short', day: 'numeric' },
+    tr: { year: 'numeric', month: 'short', day: 'numeric' },
+    sv: { year: 'numeric', month: 'short', day: 'numeric' },
   };
   return formats[locale] || formats.en;
 }
@@ -225,6 +244,10 @@ export function getNumberFormat(locale: SupportedLanguage): Intl.NumberFormatOpt
     ru: { minimumFractionDigits: 0, maximumFractionDigits: 2 },
     ar: { minimumFractionDigits: 0, maximumFractionDigits: 2 },
     hi: { minimumFractionDigits: 0, maximumFractionDigits: 2 },
+    nl: { minimumFractionDigits: 0, maximumFractionDigits: 2 },
+    pl: { minimumFractionDigits: 0, maximumFractionDigits: 2 },
+    tr: { minimumFractionDigits: 0, maximumFractionDigits: 2 },
+    sv: { minimumFractionDigits: 0, maximumFractionDigits: 2 },
   };
   return formats[locale] || formats.en;
 }

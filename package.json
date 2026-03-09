@@ -2,7 +2,7 @@
   "name": "k1-antigravity-monitor",
   "displayName": "K1 Antigravity Monitor",
   "description": "Monitor Antigravity quota and predict exhaustion with real-time status bar monitoring, smart alerts, and cross-platform support.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "zendevve",
   "license": "MIT",
   "repository": {
@@ -238,7 +238,11 @@
             "ko",
             "ru",
             "ar",
-            "hi"
+            "hi",
+            "nl",
+            "pl",
+            "tr",
+            "sv"
           ],
           "default": "auto",
           "description": "Language for the extension UI."

@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor kon niet starten.",
+    "privacyNotice": {
+      "title": "Privacyverklaring",
+      "message": "K1 Antigravity Monitor verzamelt anonieme gebruiksgegevens om de extensie te verbeteren. U kunt zich te allen tijde afmelden in de instellingen.",
+      "accept": "Accepteren",
+      "decline": "Weigeren"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Model",
+      "remaining": "Resterend",
+      "confidence": "Vertrouwen",
+      "updated": "Bijgewerkt",
+      "stale": "Gegevens zijn mogelijk verouderd",
+      "quietHours": "Waarschuwingen onderdrukt (stille uren actief)",
+      "snoozed": "Waarschuwingen uitgesteld"
+    },
+    "warning": {
+      "stale": "⚠ Verouderd",
+      "calculating": "Berekenen…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Vernieuw Quota",
+      "label": "Vernieuwen…"
+    },
+    "switchModel": {
+      "title": "K1: Wissel Model"
+    },
+    "togglePanel": {
+      "title": "K1: Schakel Panel"
+    },
+    "showDiagnostics": {
+      "title": "K1: Toon Diagnostiek"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Waarschuwingen Uitstellen"
+    },
+    "clearSnooze": {
+      "title": "K1: Uitstel Wissen"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Quota Waarschuwing",
+      "message": "Waarschuwing: Quota laag voor {{model}} ({{percent}}% resterend)"
+    },
+    "critical": {
+      "title": "Quota Kritiek",
+      "message": "Kritiek: Quota bijna uitgeput voor {{model}} ({{percent}}% resterend)"
+    },
+    "quietHours": {
+      "active": "Waarschuwingen onderdrukt tijdens stille uren"
+    },
+    "snoozed": {
+      "until": "Waarschuwingen uitgesteld tot {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 minuten",
+        "1hour": "1 uur",
+        "4hours": "4 uur",
+        "untilTomorrow": "Tot morgen"
+      },
+      "cleared": "Waarschuwing uitstel gewist"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Stille Uren",
+      "description": "Waarschuwingen onderdrukken tijdens geplande tijden"
+    },
+    "privacy": {
+      "title": "Privacy",
+      "telemetry": "Telemetry Inschakelen",
+      "telemetry.description": "Anonieme gebruiksgegevens verzenden om de extensie te verbeteren",
+      "localOnly": "Lokale Alleen Modus",
+      "localOnly.description": "Schakel alle netwerkoproepen uit, behalve naar uw Antigravity-instantie"
+    }
+  },
+  "error": {
+    "connectionFailed": "Kan geen verbinding maken met Antigravity-instantie",
+    "authFailed": "Verificatie mislukt",
+    "dataFetchFailed": "Kan quota-gegevens niet ophalen"
+  }
+}
