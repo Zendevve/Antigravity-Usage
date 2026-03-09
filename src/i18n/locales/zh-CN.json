@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor 启动失败。",
+    "privacyNotice": {
+      "title": "隐私声明",
+      "message": "K1 Antigravity Monitor 收集匿名使用数据以改进扩展程序。您可以随时在设置中选择退出。",
+      "accept": "接受",
+      "decline": "拒绝"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "模型",
+      "remaining": "剩余",
+      "confidence": "置信度",
+      "updated": "更新时间",
+      "stale": "数据可能已过期",
+      "quietHours": "警报已抑制（安静时段生效）",
+      "snoozed": "警报已延期"
+    },
+    "warning": {
+      "stale": "⚠ 已过期",
+      "calculating": "计算中…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: 刷新配额",
+      "label": "刷新中…"
+    },
+    "switchModel": {
+      "title": "K1: 切换模型"
+    },
+    "togglePanel": {
+      "title": "K1: 切换面板"
+    },
+    "showDiagnostics": {
+      "title": "K1: 显示诊断"
+    },
+    "snoozeAlerts": {
+      "title": "K1: 延期警报"
+    },
+    "clearSnooze": {
+      "title": "K1: 清除延期"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "配额警告",
+      "message": "警告: {{model}} 配额不足（剩余 {{percent}}%）"
+    },
+    "critical": {
+      "title": "配额危急",
+      "message": "危急: {{model}} 配额即将耗尽（剩余 {{percent}}%）"
+    },
+    "quietHours": {
+      "active": "安静时段期间警报已抑制"
+    },
+    "snoozed": {
+      "until": "警报已延期至 {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15分钟",
+        "1hour": "1小时",
+        "4hours": "4小时",
+        "untilTomorrow": "直到明天"
+      },
+      "cleared": "警报延期已清除"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "安静时段",
+      "description": "在计划时间段内抑制警报"
+    },
+    "privacy": {
+      "title": "隐私",
+      "telemetry": "启用遥测",
+      "telemetry.description": "发送匿名使用数据以帮助改进扩展程序",
+      "localOnly": "仅本地模式",
+      "localOnly.description": "禁用除 Antigravity 实例外的所有网络调用"
+    }
+  },
+  "error": {
+    "connectionFailed": "无法连接到 Antigravity 实例",
+    "authFailed": "认证失败",
+    "dataFetchFailed": "获取配额数据失败"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor no se pudo iniciar.",
+    "privacyNotice": {
+      "title": "Aviso de Privacidad",
+      "message": "K1 Antigravity Monitor recopila datos anónimos de uso para mejorar la extensión. Puede optar por no participar en cualquier momento en la configuración.",
+      "accept": "Aceptar",
+      "decline": "Rechazar"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Modelo",
+      "remaining": "Restante",
+      "confidence": "Confianza",
+      "updated": "Actualizado",
+      "stale": "Los datos pueden estar desactualizados",
+      "quietHours": "Alertas silenciadas (horario de silencio activo)",
+      "snoozed": "Alertas pospuestas"
+    },
+    "warning": {
+      "stale": "⚠ Desactualizado",
+      "calculating": "Calculando…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Actualizar Cuota",
+      "label": "Actualizando…"
+    },
+    "switchModel": {
+      "title": "K1: Cambiar Modelo"
+    },
+    "togglePanel": {
+      "title": "K1: Alternar Panel"
+    },
+    "showDiagnostics": {
+      "title": "K1: Mostrar Diagnósticos"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Posponer Alertas"
+    },
+    "clearSnooze": {
+      "title": "K1: Cancelar Reposo de Alertas"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Advertencia de Cuota",
+      "message": "Advertencia: Cuota baja para {{model}} ({{percent}}% restante)"
+    },
+    "critical": {
+      "title": "Cuota Crítica",
+      "message": "Crítico: Cuota casi agotada para {{model}} ({{percent}}% restante)"
+    },
+    "quietHours": {
+      "active": "Alertas silenciadas durante el horario de silencio"
+    },
+    "snoozed": {
+      "until": "Alertas pospuestas hasta {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 minutos",
+        "1hour": "1 hora",
+        "4hours": "4 horas",
+        "untilTomorrow": "Hasta mañana"
+      },
+      "cleared": "Reposo de alertas cancelado"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Horario de Silencio",
+      "description": "Silenciar alertas durante horarios programados"
+    },
+    "privacy": {
+      "title": "Privacidad",
+      "telemetry": "Habilitar Telemetría",
+      "telemetry.description": "Enviar datos de uso anónimos para ayudar a mejorar la extensión",
+      "localOnly": "Modo Solo Local",
+      "localOnly.description": "Desactivar todas las llamadas de red excepto a su instancia de Antigravity"
+    }
+  },
+  "error": {
+    "connectionFailed": "Error al conectar con la instancia de Antigravity",
+    "authFailed": "Error de autenticación",
+    "dataFetchFailed": "Error al obtener los datos de cuota"
+  }
+}

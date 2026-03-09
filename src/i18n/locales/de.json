@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor konnte nicht gestartet werden.",
+    "privacyNotice": {
+      "title": "Datenschutzhinweis",
+      "message": "K1 Antigravity Monitor sammelt anonyme Nutzungsdaten, um die Erweiterung zu verbessern. Sie können jederzeit in den Einstellungen ablehnen.",
+      "accept": "Akzeptieren",
+      "decline": "Ablehnen"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Modell",
+      "remaining": "Verbleibend",
+      "confidence": "Vertrauen",
+      "updated": "Aktualisiert",
+      "stale": "Daten sind möglicherweise veraltet",
+      "quietHours": "Warnungen unterdrückt (Ruhezeiten aktiv)",
+      "snoozed": "Warnungen pausiert"
+    },
+    "warning": {
+      "stale": "⚠ Veraltet",
+      "calculating": "Berechnung…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Kontingent Aktualisieren",
+      "label": "Aktualisiere…"
+    },
+    "switchModel": {
+      "title": "K1: Modell Wechseln"
+    },
+    "togglePanel": {
+      "title": "K1: Panel Umschalten"
+    },
+    "showDiagnostics": {
+      "title": "K1: Diagnose Anzeigen"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Warnungen Pausieren"
+    },
+    "clearSnooze": {
+      "title": "K1: Pausierung Aufheben"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Kontingentwarnung",
+      "message": "Warnung: Niedriges Kontingent für {{model}} ({{percent}}% verbleibend)"
+    },
+    "critical": {
+      "title": "Kritisches Kontingent",
+      "message": "Kritisch: Kontingent fast erschöpft für {{model}} ({{percent}}% verbleibend)"
+    },
+    "quietHours": {
+      "active": "Warnungen während der Ruhezeiten unterdrückt"
+    },
+    "snoozed": {
+      "until": "Warnungen bis {{time}} pausiert"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 Minuten",
+        "1hour": "1 Stunde",
+        "4hours": "4 Stunden",
+        "untilTomorrow": "Bis morgen"
+      },
+      "cleared": "Warnungspausierung aufgehoben"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Ruhezeiten",
+      "description": "Warnungen während geplanter Zeiten unterdrücken"
+    },
+    "privacy": {
+      "title": "Datenschutz",
+      "telemetry": "Telemetrie Aktivieren",
+      "telemetry.description": "Anonyme Nutzungsdaten senden, um die Erweiterung zu verbessern",
+      "localOnly": "Nur Lokaler Modus",
+      "localOnly.description": "Alle Netzwerkaufrufe außer zu Ihrer Antigravity-Instanz deaktivieren"
+    }
+  },
+  "error": {
+    "connectionFailed": "Verbindung zur Antigravity-Instanz fehlgeschlagen",
+    "authFailed": "Authentifizierung fehlgeschlagen",
+    "dataFetchFailed": "Abrufen der Kontingentdaten fehlgeschlagen"
+  }
+}

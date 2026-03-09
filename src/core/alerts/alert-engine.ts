@@ -5,25 +5,43 @@ import { AlertEvent, AlertSeverity } from '../types/alert';
 import { quotaState$ } from '../state/quota-state';
 import { log } from '../../util/logger';
 import { t } from '../../i18n/setup';
+import { AlertRulesEngine } from './alert-rules';
+import { AlertStateManager, SnoozeDuration } from './alert-state';
 
+/**
+ * Alert engine - evaluates quota states and emits alert events
+ * Uses AlertRulesEngine for hysteresis, cooldown, quiet hours, and snooze handling
+ */
 export class AlertEngine {
   public readonly alert$ = new Subject<AlertEvent>();
   private subscription?: Subscription;
   private config: Config;
-
-  // Track the triggered state per model
-  private warningTriggered: Map<string, boolean> = new Map();
-  private criticalTriggered: Map<string, boolean> = new Map();
+  private rulesEngine: AlertRulesEngine;
 
   constructor(initialConfig: Config) {
     this.config = initialConfig;
+    this.rulesEngine = new AlertRulesEngine(initialConfig);
   }
 
-  public updateConfig(config: Config) {
+  /**
+   * Update configuration
+   */
+  public updateConfig(config: Config): void {
     this.config = config;
+    this.rulesEngine.updateConfig(config);
   }
 
-  public start() {
+  /**
+   * Get the state manager for external controls (snooze, etc.)
+   */
+  public getStateManager(): AlertStateManager {
+    return this.rulesEngine.getStateManager();
+  }
+
+  /**
+   * Start the alert engine
+   */
+  public start(): void {
     if (this.subscription) return;
     this.subscription = quotaState$.subscribe((states) => {
       this.evaluate(states);
@@ -31,50 +49,59 @@ export class AlertEngine {
     log.info('AlertEngine started');
   }
 
-  public stop() {
+  /**
+   * Stop the alert engine
+   */
+  public stop(): void {
     this.subscription?.unsubscribe();
     this.subscription = undefined;
     log.info('AlertEngine stopped');
   }
 
-  private evaluate(states: QuotaState[]) {
+  /**
+   * Evaluate quota states and emit alerts if needed
+   */
+  private evaluate(states: QuotaState[]): void {
     for (const state of states) {
       this.checkModel(state);
     }
   }
 
-  private checkModel(state: QuotaState) {
+  /**
+   * Check a single model and emit alerts if thresholds are crossed
+   */
+  private checkModel(state: QuotaState): void {
     const p = state.remainingPercent;
+    const modelId = state.model;
 
-    // Check critical first
-    if (p <= this.config.thresholdCritical) {
-      if (!this.criticalTriggered.get(state.model)) {
-        this.emitAlert(state, AlertSeverity.CRITICAL, `Critical quota reached for ${state.model} (${p.toFixed(1)}% remaining)`);
-        this.warningTriggered.set(state.model, true); // implicitly crossed warning
-        this.criticalTriggered.set(state.model, true);
-      }
-    } else if (p <= this.config.thresholdWarning) {
-      // In warning zone, but above critical
-      if (!this.warningTriggered.get(state.model)) {
-        this.emitAlert(state, AlertSeverity.WARNING, `Warning: Quota low for ${state.model} (${p.toFixed(1)}% remaining)`);
-        this.warningTriggered.set(state.model, true);
-      }
-      // If it recovered from critical, we can reset critical trigger
-      if (this.criticalTriggered.get(state.model)) {
-        this.criticalTriggered.set(state.model, false);
-      }
-    } else {
-      // Above warning threshold, reset both
-      if (this.warningTriggered.get(state.model)) {
-        this.warningTriggered.set(state.model, false);
-      }
-      if (this.criticalTriggered.get(state.model)) {
-        this.criticalTriggered.set(state.model, false);
-      }
+    // Use the rules engine to evaluate with hysteresis, cooldown, quiet hours, snooze
+    const alertSeverity = this.rulesEngine.evaluate(p, modelId);
+
+    if (alertSeverity) {
+      const message = this.buildAlertMessage(alertSeverity, p, modelId);
+      this.emitAlert(state, alertSeverity, message);
     }
   }
 
-  private emitAlert(state: QuotaState, severity: AlertSeverity, message: string) {
+  /**
+   * Build localized alert message
+   */
+  private buildAlertMessage(severity: AlertSeverity, percent: number, modelId: string): string {
+    const percentStr = percent.toFixed(1);
+
+    if (severity === AlertSeverity.CRITICAL) {
+      return t('alert.critical.message', { model: modelId, percent: percentStr });
+    } else if (severity === AlertSeverity.WARNING) {
+      return t('alert.warning.message', { model: modelId, percent: percentStr });
+    }
+
+    return `Quota alert for ${modelId} (${percentStr}% remaining)`;
+  }
+
+  /**
+   * Emit an alert event
+   */
+  private emitAlert(state: QuotaState, severity: AlertSeverity, message: string): void {
     const event: AlertEvent = {
       ruleId: `threshold_${severity.toLowerCase()}`,
       message,
@@ -84,5 +111,39 @@ export class AlertEngine {
     };
     log.warn(`Alert Triggered: [${severity}] ${message}`);
     this.alert$.next(event);
+  }
+
+  /**
+   * Snooze alerts for a specified duration
+   * @param duration - Duration in minutes or 'until-tomorrow'
+   * @param levels - Which alert levels to snooze
+   */
+  public snooze(duration: SnoozeDuration, levels: AlertSeverity[]): void {
+    const stateManager = this.getStateManager();
+    stateManager.snooze(duration, levels);
+    log.info(`Alerts snoozed: ${duration === 'until-tomorrow' ? 'until tomorrow' : duration + ' minutes'} for levels: ${levels.join(', ')}`);
+  }
+
+  /**
+   * Clear snooze
+   */
+  public clearSnooze(): void {
+    const stateManager = this.getStateManager();
+    stateManager.clearSnooze();
+    log.info('Alert snooze cleared');
+  }
+
+  /**
+   * Check if currently in quiet hours
+   */
+  public isQuietHoursActive(): boolean {
+    return this.getStateManager().isQuietHoursActive();
+  }
+
+  /**
+   * Check if alerts are snoozed
+   */
+  public isSnoozed(severity: AlertSeverity): boolean {
+    return this.getStateManager().isSnoozed(severity);
   }
 }

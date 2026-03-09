@@ -4,21 +4,33 @@ import { Config } from '../../../core/types/config';
 import { getIcon, getSeverityColor } from './icon-renderer';
 import { buildTooltip } from './tooltip-builder';
 import { StatusBarAnimation } from './animation';
+import { SparklineRenderer } from './sparkline-renderer';
 import { t } from '../../../i18n/setup';
 import { ConnectionInfo, ConnectionStatus } from '../../connection/connection-state';
 
 export class StatusBarController {
   private item: vscode.StatusBarItem;
   private animation: StatusBarAnimation | null = null;
+  private sparkline: SparklineRenderer;
 
   constructor(context: vscode.ExtensionContext) {
     this.item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
     this.item.command = 'k1.switchModel'; // Placeholder for S2-07
     context.subscriptions.push(this.item);
     this.item.show();
+
+    // Initialize sparkline
+    this.sparkline = new SparklineRenderer({
+      enabled: true,
+      windowHours: 24,
+    });
   }
 
-  public update(readings: QuotaState[], config: Config, connection: ConnectionInfo) {
+  public update(
+    readings: QuotaState[],
+    config: Config,
+    connection: ConnectionInfo
+  ): void {
     if (connection.status === ConnectionStatus.DISCONNECTED) {
       this.item.text = `$(plug) Antigravity Offline`;
       this.item.color = new vscode.ThemeColor('disabledForeground');
@@ -47,8 +59,13 @@ export class StatusBarController {
     const color = getSeverityColor(activeReading.remainingPercent, config);
     const text = `${activeReading.remainingPercent.toFixed(1)}%`;
 
+    // Update sparkline with new data point
+    if (config.sparklineEnabled) {
+      this.sparkline.addDataPoint(activeReading.remainingPercent, activeReading.fetchedAt);
+    }
+
     this.item.color = color;
-    this.item.tooltip = buildTooltip(activeReading, isStale);
+    this.item.tooltip = buildTooltip(activeReading, isStale, this.sparkline);
     this.item.accessibilityInformation = {
       label: `Antigravity Quota: ${text} remaining for ${activeReading.model}${isStale ? ' (Stale)' : ''}`,
       role: 'button'
@@ -89,5 +106,12 @@ export class StatusBarController {
       this.animation.stop();
       this.animation = null;
     }
+  }
+
+  /**
+   * Get the sparkline renderer for external access
+   */
+  public getSparkline(): SparklineRenderer {
+    return this.sparkline;
   }
 }

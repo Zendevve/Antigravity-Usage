@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitorを開始できませんでした。",
+    "privacyNotice": {
+      "title": "プライバシーに関する通知",
+      "message": "K1 Antigravity Monitorは、拡張機能を改善するために匿名使用データを収集します。設定でいつでもオプトアウトできます。",
+      "accept": "承認",
+      "decline": "辞退"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "モデル",
+      "remaining": "残り",
+      "confidence": "信頼度",
+      "updated": "更新日時",
+      "stale": "データが古い可能性があります",
+      "quietHours": "アラート抑制中（quet hours有効）",
+      "snoozed": "アラート一時停止中"
+    },
+    "warning": {
+      "stale": "⚠ 古い",
+      "calculating": "計算中…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: クォータを更新",
+      "label": "更新中…"
+    },
+    "switchModel": {
+      "title": "K1: モデルを切り替え"
+    },
+    "togglePanel": {
+      "title": "K1: パネルを切り替え"
+    },
+    "showDiagnostics": {
+      "title": "K1: 診断を表示"
+    },
+    "snoozeAlerts": {
+      "title": "K1: アラートを一時停止"
+    },
+    "clearSnooze": {
+      "title": "K1: 一時停止を解除"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "クォータ警告",
+      "message": "警告: {{model}}のクォータが少なくなっています（残り{{percent}}%）"
+    },
+    "critical": {
+      "title": "クォータ危機",
+      "message": "危機: {{model}}のクォータがほぼ枯渇しています（残り{{percent}}%）"
+    },
+    "quietHours": {
+      "active": "quet hours中はアラートが抑制されています"
+    },
+    "snoozed": {
+      "until": "{{time}}までアラートが一時停止されています"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15分",
+        "1hour": "1時間",
+        "4hours": "4時間",
+        "untilTomorrow": "明日まで"
+      },
+      "cleared": "アラートの一時停止が解除されました"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "quet Hours",
+      "description": "スケジュールされた時間にアラートを抑制"
+    },
+    "privacy": {
+      "title": "プライバシー",
+      "telemetry": "テレメトリーを有効にする",
+      "telemetry.description": "拡張機能の改善に 도움이る匿名使用データを送信",
+      "localOnly": "ローカル専用モード",
+      "localOnly.description": "Antigravityインスタンスへの以外のすべてのネットワーク呼び出しを無効化"
+    }
+  },
+  "error": {
+    "connectionFailed": "Antigravityインスタンスへの接続に失敗しました",
+    "authFailed": "認証に失敗しました",
+    "dataFetchFailed": "クォータデータの取得に失敗しました"
+  }
+}

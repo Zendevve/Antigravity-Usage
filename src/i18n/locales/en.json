@@ -1,6 +1,12 @@
 {
   "extension": {
-    "activationFailed": "K1 Antigravity Monitor failed to start."
+    "activationFailed": "K1 Antigravity Monitor failed to start.",
+    "privacyNotice": {
+      "title": "Privacy Notice",
+      "message": "K1 Antigravity Monitor collects anonymous usage data to improve the extension. You can opt out at any time in settings.",
+      "accept": "Accept",
+      "decline": "Decline"
+    }
   },
   "statusBar": {
     "tooltip": {
@@ -8,7 +14,9 @@
       "remaining": "Remaining",
       "confidence": "Confidence",
       "updated": "Updated",
-      "stale": "Data may be outdated"
+      "stale": "Data may be outdated",
+      "quietHours": "Alerts suppressed (quiet hours active)",
+      "snoozed": "Alerts snoozed"
     },
     "warning": {
       "stale": "⚠ Stale",
@@ -28,16 +36,55 @@
     },
     "showDiagnostics": {
       "title": "K1: Show Diagnostics"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Snooze Alerts"
+    },
+    "clearSnooze": {
+      "title": "K1: Clear Alert Snooze"
     }
   },
   "alert": {
     "warning": {
       "title": "Quota Warning",
-      "message": "Your Antigravity Quota has fallen below the warning threshold."
+      "message": "Warning: Quota low for {{model}} ({{percent}}% remaining)"
     },
     "critical": {
       "title": "Quota Critical",
-      "message": "Your Antigravity Quota is critically low."
+      "message": "Critical: Quota nearly exhausted for {{model}} ({{percent}}% remaining)"
+    },
+    "quietHours": {
+      "active": "Alerts suppressed during quiet hours"
+    },
+    "snoozed": {
+      "until": "Alerts snoozed until {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 minutes",
+        "1hour": "1 hour",
+        "4hours": "4 hours",
+        "untilTomorrow": "Until tomorrow"
+      },
+      "cleared": "Alert snooze cleared"
     }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Quiet Hours",
+      "description": "Suppress alerts during scheduled times"
+    },
+    "privacy": {
+      "title": "Privacy",
+      "telemetry": "Enable Telemetry",
+      "telemetry.description": "Send anonymous usage data to help improve the extension",
+      "localOnly": "Local Only Mode",
+      "localOnly.description": "Disable all network calls except to your Antigravity instance"
+    }
+  },
+  "error": {
+    "connectionFailed": "Failed to connect to Antigravity instance",
+    "authFailed": "Authentication failed",
+    "dataFetchFailed": "Failed to fetch quota data"
   }
 }

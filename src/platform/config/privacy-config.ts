@@ -1,0 +1,146 @@
+import * as vscode from 'vscode';
+
+/**
+ * Privacy configuration interface
+ */
+export interface PrivacyConfig {
+  telemetryEnabled: boolean;
+  localOnlyMode: boolean;
+  anonymizedId: string;  // Generated once, stored locally
+}
+
+/**
+ * Privacy settings keys for VSCode configuration
+ */
+export const PRIVACY_SETTINGS = {
+  TELEMETRY_ENABLED: 'k1-antigravity.telemetryEnabled',
+  LOCAL_ONLY_MODE: 'k1-antigravity.localOnlyMode',
+  ANONYMIZED_ID: 'k1-antigravity.anonymizedId',
+  PRIVACY_NOTICE_SHOWN: 'k1-antigravity.privacyNoticeShown',
+} as const;
+
+/**
+ * Privacy manager - handles privacy-related configuration
+ */
+export class PrivacyManager {
+  private context: vscode.ExtensionContext;
+  private config: PrivacyConfig | null = null;
+
+  constructor(context: vscode.ExtensionContext) {
+    this.context = context;
+  }
+
+  /**
+   * Initialize privacy configuration
+   */
+  public async initialize(): Promise<PrivacyConfig> {
+    // Get or generate anonymized ID
+    let anonymizedId = this.context.globalState.get<string>(PRIVACY_SETTINGS.ANONYMIZED_ID);
+
+    if (!anonymizedId) {
+      // Generate a new UUID for this extension instance
+      anonymizedId = this.generateUuid();
+      await this.context.globalState.update(PRIVACY_SETTINGS.ANONYMIZED_ID, anonymizedId);
+    }
+
+    // Get telemetry setting from VSCode config
+    const telemetryConfig = vscode.workspace.getConfiguration('k1-antigravity');
+    const telemetryEnabled = telemetryConfig.get<boolean>('telemetryEnabled', false);
+    const localOnlyMode = telemetryConfig.get<boolean>('localOnlyMode', false);
+
+    this.config = {
+      telemetryEnabled,
+      localOnlyMode,
+      anonymizedId,
+    };
+
+    return this.config;
+  }
+
+  /**
+   * Get current privacy configuration
+   */
+  public getConfig(): PrivacyConfig {
+    if (!this.config) {
+      throw new Error('PrivacyManager not initialized. Call initialize() first.');
+    }
+    return this.config;
+  }
+
+  /**
+   * Check if telemetry is enabled
+   */
+  public isTelemetryEnabled(): boolean {
+    return this.config?.telemetryEnabled ?? false;
+  }
+
+  /**
+   * Check if local-only mode is enabled
+   */
+  public isLocalOnlyMode(): boolean {
+    return this.config?.localOnlyMode ?? false;
+  }
+
+  /**
+   * Get anonymized ID
+   */
+  public getAnonymizedId(): string {
+    return this.config?.anonymizedId ?? '';
+  }
+
+  /**
+   * Update telemetry setting
+   */
+  public async setTelemetryEnabled(enabled: boolean): Promise<void> {
+    const config = vscode.workspace.getConfiguration('k1-antigravity');
+    await config.update('telemetryEnabled', enabled, vscode.ConfigurationTarget.Global);
+
+    if (this.config) {
+      this.config.telemetryEnabled = enabled;
+    }
+  }
+
+  /**
+   * Update local-only mode setting
+   */
+  public async setLocalOnlyMode(enabled: boolean): Promise<void> {
+    const config = vscode.workspace.getConfiguration('k1-antigravity');
+    await config.update('localOnlyMode', enabled, vscode.ConfigurationTarget.Global);
+
+    if (this.config) {
+      this.config.localOnlyMode = enabled;
+    }
+  }
+
+  /**
+   * Check if privacy notice has been shown
+   */
+  public isPrivacyNoticeShown(): boolean {
+    return this.context.globalState.get<boolean>(PRIVACY_SETTINGS.PRIVACY_NOTICE_SHOWN, false);
+  }
+
+  /**
+   * Mark privacy notice as shown
+   */
+  public async markPrivacyNoticeShown(): Promise<void> {
+    await this.context.globalState.update(PRIVACY_SETTINGS.PRIVACY_NOTICE_SHOWN, true);
+  }
+
+  /**
+   * Generate a random UUID v4
+   */
+  private generateUuid(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+}
+
+/**
+ * Create privacy manager instance
+ */
+export function createPrivacyManager(context: vscode.ExtensionContext): PrivacyManager {
+  return new PrivacyManager(context);
+}

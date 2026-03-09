@@ -1,7 +1,7 @@
 {
   "name": "k1-antigravity-monitor",
   "displayName": "K1 Antigravity Monitor",
-  "description": "Monitors Antigravity quota and predicts exhaustion",
+  "description": "Monitor Antigravity quota and predict exhaustion with real-time status bar monitoring, smart alerts, and cross-platform support.",
   "version": "0.1.0",
   "publisher": "zendevve",
   "license": "MIT",
@@ -16,13 +16,29 @@
     "vscode": "^1.80.0"
   },
   "categories": [
-    "Other"
+    "Monitoring",
+    "Developer Tools"
   ],
   "keywords": [
     "antigravity",
     "quota",
-    "monitor"
+    "monitor",
+    "api-usage",
+    "billing",
+    "tokens",
+    "claude",
+    "openai",
+    "gpt",
+    "status-bar",
+    "monitoring",
+    "developer-tools"
   ],
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "icon": "assets/icon.png",
+  "homepage": "https://github.com/Zendevve/k1-antigravity-monitor",
   "activationEvents": [
     "onStartupFinished"
   ],
@@ -96,6 +112,78 @@
           "type": "number",
           "default": 13337,
           "description": "Port for the local Antigravity instance."
+        },
+        "k1-antigravity.sparklineEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sparkline trend visualization in status bar tooltip."
+        },
+        "k1-antigravity.sparklineWindowHours": {
+          "type": "number",
+          "default": 24,
+          "description": "Time window in hours for sparkline trend analysis (1-168)."
+        },
+        "k1-antigravity.historyRetentionDays": {
+          "type": "number",
+          "default": 30,
+          "description": "Number of days to retain quota history (1-365)."
+        },
+        "k1-antigravity.historySnapshotIntervalMinutes": {
+          "type": "number",
+          "default": 5,
+          "description": "Interval in minutes between quota snapshots (1-60)."
+        },
+        "k1-antigravity.alertHysteresisWarning": {
+          "type": "number",
+          "default": 5,
+          "description": "Warning hysteresis percentage to prevent alert flapping (0-50)."
+        },
+        "k1-antigravity.alertHysteresisCritical": {
+          "type": "number",
+          "default": 5,
+          "description": "Critical hysteresis percentage to prevent alert flapping (0-50)."
+        },
+        "k1-antigravity.alertCooldownWarning": {
+          "type": "number",
+          "default": 300000,
+          "description": "Cooldown time in milliseconds between warning alerts (default: 5 minutes)."
+        },
+        "k1-antigravity.alertCooldownCritical": {
+          "type": "number",
+          "default": 120000,
+          "description": "Cooldown time in milliseconds between critical alerts (default: 2 minutes)."
+        },
+        "k1-antigravity.quietHoursEnabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable quiet hours to suppress alerts during scheduled times."
+        },
+        "k1-antigravity.quietHoursSchedule": {
+          "type": "object",
+          "default": {
+            "daysOfWeek": [
+              0,
+              6
+            ],
+            "startTime": "22:00",
+            "endTime": "08:00"
+          },
+          "description": "Quiet hours schedule configuration."
+        },
+        "k1-antigravity.quietHoursTimezone": {
+          "type": "string",
+          "default": "UTC",
+          "description": "Timezone for quiet hours schedule (IANA timezone)."
+        },
+        "k1-antigravity.telemetryEnabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable anonymous telemetry to help improve the extension."
+        },
+        "k1-antigravity.localOnlyMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable all network calls except to your Antigravity instance."
         }
       }
     }

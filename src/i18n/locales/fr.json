@@ -1,0 +1,90 @@
+{
+  "extension": {
+    "activationFailed": "K1 Antigravity Monitor n'a pas pu démarrer.",
+    "privacyNotice": {
+      "title": "Avis de Confidentialité",
+      "message": "K1 Antigravity Monitor collecte des données d'utilisation anonymes pour améliorer l'extension. Vous pouvez refuser à tout moment dans les paramètres.",
+      "accept": "Accepter",
+      "decline": "Refuser"
+    }
+  },
+  "statusBar": {
+    "tooltip": {
+      "model": "Modèle",
+      "remaining": "Restant",
+      "confidence": "Confiance",
+      "updated": "Mis à jour",
+      "stale": "Les données peuvent être obsolètes",
+      "quietHours": "Alertes supprimées (heures silencieuses actives)",
+      "snoozed": "Alertas en sourdine"
+    },
+    "warning": {
+      "stale": "⚠ Obsolète",
+      "calculating": "Calcul en cours…"
+    }
+  },
+  "commands": {
+    "refreshQuota": {
+      "title": "K1: Actualiser le Quota",
+      "label": "Actualisation…"
+    },
+    "switchModel": {
+      "title": "K1: Changer de Modèle"
+    },
+    "togglePanel": {
+      "title": "K1: Basculer le Panneau"
+    },
+    "showDiagnostics": {
+      "title": "K1: Afficher les Diagnostics"
+    },
+    "snoozeAlerts": {
+      "title": "K1: Mettre en Sourdine les Alertes"
+    },
+    "clearSnooze": {
+      "title": "K1: Réactiver les Alertes"
+    }
+  },
+  "alert": {
+    "warning": {
+      "title": "Avertissement de Quota",
+      "message": "Avertissement: Quota faible pour {{model}} ({{percent}}% restant)"
+    },
+    "critical": {
+      "title": "Quota Critique",
+      "message": "Critique: Quota quasi épuisé pour {{model}} ({{percent}}% restant)"
+    },
+    "quietHours": {
+      "active": "Alertes supprimées pendant les heures silencieuses"
+    },
+    "snoozed": {
+      "until": "Alertes en sourdine jusqu'à {{time}}"
+    },
+    "snooze": {
+      "options": {
+        "15min": "15 minutes",
+        "1hour": "1 heure",
+        "4hours": "4 heures",
+        "untilTomorrow": "Jusqu'à demain"
+      },
+      "cleared": "Sourdine des alertes désactivée"
+    }
+  },
+  "settings": {
+    "quietHours": {
+      "title": "Heures Silencieuses",
+      "description": "Supprimer les alertes pendant les heures programmées"
+    },
+    "privacy": {
+      "title": "Confidentialité",
+      "telemetry": "Activer la Télémétrie",
+      "telemetry.description": "Envoyer des données d'utilisation anonymes pour améliorer l'extension",
+      "localOnly": "Mode Local Uniquement",
+      "localOnly.description": "Désactiver tous les appels réseau sauf vers votre instance Antigravity"
+    }
+  },
+  "error": {
+    "connectionFailed": "Échec de la connexion à l'instance Antigravity",
+    "authFailed": "Échec de l'authentification",
+    "dataFetchFailed": "Échec de la récupération des données de quota"
+  }
+}

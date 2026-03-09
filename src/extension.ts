@@ -13,6 +13,7 @@ import { SecretWrapper } from './platform/storage/secret-wrapper';
 import { SourceRegistry } from './core/acquisition/source-registry';
 import { AntigravityApiSource } from './core/acquisition/source-a-antigravity-api';
 import { QuotaStreamTopology } from './core/state/streams';
+import { quotaState$ } from './core/state/quota-state';
 import { StatusBarController } from './platform/presentation/status-bar/status-bar-controller';
 import { AlertEngine } from './core/alerts/alert-engine';
 import { NotificationDispatcher } from './core/alerts/notification-dispatcher';
@@ -24,12 +25,19 @@ import { createSwitchModelHandler } from './platform/commands/handlers/switch-mo
 import { createTogglePanelHandler } from './platform/commands/handlers/toggle-panel';
 import { createShowDiagnosticsHandler } from './platform/commands/handlers/show-diagnostics';
 
+// Sprint 6 Imports
+import { createQuotaTreeView } from './platform/presentation/treeview/quota-treeview-provider';
+import { HistoryStore, QuotaSource } from './platform/storage/history-store';
+import { createQueryApi } from './platform/storage/query-api';
+
 // Global topology reference for clean deactivation
 let topology: QuotaStreamTopology | undefined;
 let alertEngine: AlertEngine | undefined;
 let dispatcher: NotificationDispatcher | undefined;
 let autoReconnect: AutoReconnect | undefined;
 let commands: CommandRegistry | undefined;
+let treeViewProvider: ReturnType<typeof createQuotaTreeView> | undefined;
+let historyStore: HistoryStore | undefined;
 
 export async function activate(context: vscode.ExtensionContext) {
   const disposable = new DisposableStore();
@@ -52,6 +60,13 @@ export async function activate(context: vscode.ExtensionContext) {
     const secrets = new SecretWrapper(context.secrets);
     const initialConfig = readConfig();
     const configWatcher = new ConfigWatcher(context, disposable);
+
+    // Sprint 6: Initialize History Store
+    historyStore = new HistoryStore(context.globalState, {
+      retentionDays: initialConfig.historyRetentionDays,
+      snapshotIntervalMinutes: initialConfig.historySnapshotIntervalMinutes,
+    });
+    const queryApi = createQueryApi(historyStore);
 
     // 2. Detection
     const connectionResult = await detectConnection();
@@ -83,14 +98,46 @@ export async function activate(context: vscode.ExtensionContext) {
     // 5. Presentation (Status Bar)
     const statusBar = new StatusBarController(context);
 
-    // 6. Config Watcher Subscriptions
+    // Sprint 6: TreeView
+    treeViewProvider = createQuotaTreeView(context);
+
+    // 6. Subscribe to quota state updates
+    // - Update TreeView
+    // - Save to history
+    const quotaSub = quotaState$.subscribe(async (readings) => {
+      // Update TreeView
+      treeViewProvider?.update(readings);
+
+      // Save to history store
+      if (historyStore && readings.length > 0) {
+        for (const reading of readings) {
+          await historyStore.saveSnapshot({
+            timestamp: reading.fetchedAt,
+            source: 'antigravity-api' as QuotaSource,
+            model: reading.model,
+            quota: reading.remainingPercent,
+            used: reading.totalTokens - reading.remainingTokens,
+            limit: reading.totalTokens,
+          });
+        }
+
+        // Also save to sparkline for status bar
+        const sparkline = statusBar.getSparkline();
+        for (const reading of readings) {
+          sparkline.addDataPoint(reading.remainingPercent, reading.fetchedAt);
+        }
+      }
+    });
+    disposable.add({ dispose: () => quotaSub.unsubscribe() });
+
+    // 7. Config Watcher Subscriptions
     const configSub = configWatcher.config$.subscribe((cfg) => {
       topology?.updateConfig(cfg);
       alertEngine?.updateConfig(cfg);
     });
     disposable.add({ dispose: () => configSub.unsubscribe() });
 
-    // 7. Auto-Reconnect
+    // 8. Auto-Reconnect
     autoReconnect = new AutoReconnect(async () => {
       const result = await detectConnection();
       if (result) {
@@ -111,13 +158,24 @@ export async function activate(context: vscode.ExtensionContext) {
     dispatcher.start();
     autoReconnect.start();
 
-    // 8. Commands wiring
+    // 9. Commands wiring
     commands = new CommandRegistry();
     commands.register('k1.refreshQuota', createRefreshQuotaHandler(topology));
     commands.register('k1.switchModel', createSwitchModelHandler(initialConfig));
     commands.register('k1.togglePanel', createTogglePanelHandler());
     commands.register('k1.showDiagnostics', createShowDiagnosticsHandler());
     disposable.add(commands);
+
+    // Sprint 6: Register history commands
+    const historyCleanupCommand = vscode.commands.registerCommand(
+      'k1-antigravity.cleanupHistory',
+      async () => {
+        if (!historyStore) return;
+        const deleted = await historyStore.cleanup(initialConfig.historyRetentionDays);
+        vscode.window.showInformationMessage(`Cleaned up ${deleted} old records`);
+      }
+    );
+    disposable.add(historyCleanupCommand);
 
     context.subscriptions.push(disposable);
     log.info('K1 Antigravity Monitor activated successfully.');

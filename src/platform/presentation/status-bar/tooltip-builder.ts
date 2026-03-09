@@ -1,8 +1,13 @@
 import * as vscode from 'vscode';
 import { SourceReading } from '../../../core/types/quota';
 import { t } from '../../../i18n/setup';
+import { SparklineRenderer } from './sparkline-renderer';
 
-export function buildTooltip(reading: SourceReading | null, isStale: boolean): vscode.MarkdownString {
+export function buildTooltip(
+  reading: SourceReading | null,
+  isStale: boolean,
+  sparkline?: SparklineRenderer
+): vscode.MarkdownString {
   const md = new vscode.MarkdownString('', true);
   md.isTrusted = true;
 
@@ -15,6 +20,14 @@ export function buildTooltip(reading: SourceReading | null, isStale: boolean): v
 
   if (isStale) {
     md.appendMarkdown(`> **${t('statusBar.warning.stale')}**: ${t('statusBar.tooltip.stale')}\n\n`);
+  }
+
+  // Add sparkline if available
+  if (sparkline && sparkline.hasEnoughData()) {
+    const sparklineResult = sparkline.render();
+    md.appendMarkdown(`**Trend**: ${sparklineResult.text}\n\n`);
+    md.appendMarkdown(sparklineResult.tooltip.replace(/\n/g, '  \n'));
+    md.appendMarkdown('\n\n');
   }
 
   md.appendMarkdown(`| Metric | Value |\n`);
