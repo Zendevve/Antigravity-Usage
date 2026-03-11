@@ -71,7 +71,7 @@ export interface HistoryConfig {
 export const DEFAULT_HISTORY_CONFIG: HistoryConfig = {
   retentionDays: 30,
   snapshotIntervalMinutes: 5,
-  maxSnapshots: 10000,
+  maxSnapshots: 100, // Reduced from 10000 to prevent O(N^2) lockups in Memento API
   maxEvents: 1000,
 };
 

@@ -10,14 +10,18 @@ export class QuotaStreamTopology {
   private subscription?: Subscription;
   private readonly scheduler = new PollingScheduler();
 
+  private config: Config;
+
   constructor(
     private readonly sources: SourceRegistry,
     initialConfig: Config
   ) {
+    this.config = initialConfig;
     this.scheduler.setConfig(initialConfig);
   }
 
   public updateConfig(config: Config) {
+    this.config = config;
     this.scheduler.setConfig(config);
   }
 
@@ -86,9 +90,7 @@ export class QuotaStreamTopology {
   }
 
   private evaluateCriticalThreshold(readings: SourceReading[]) {
-    // If any reading drops below a hypothetical critical limit (handled in actual alerts module),
-    // we could flip state to CRITICAL here. For Phase 1 we will keep this simple.
-    const isCritical = readings.some(r => r.remainingPercent <= 10);
+    const isCritical = readings.some(r => r.remainingPercent <= this.config.thresholdCritical);
     if (isCritical && this.scheduler.getCurrentState() !== PollingState.CRITICAL) {
       this.scheduler.setState(PollingState.CRITICAL);
     } else if (!isCritical && this.scheduler.getCurrentState() === PollingState.CRITICAL) {

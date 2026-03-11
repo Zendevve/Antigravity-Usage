@@ -33,7 +33,7 @@ const DateRangeSchema = z.object({
   end: z.string().datetime(),
 });
 
-const WebhookConfigInputSchema = WebhookConfigSchema.partial().extend({
+const WebhookConfigInputSchema = WebhookConfigSchema.extend({
   enabled: z.boolean().optional(),
 });
 
@@ -235,9 +235,24 @@ export function createAPIRoutes(
         return;
       }
 
+      if (!validated.data.url) {
+        res.status(400).json({
+          success: false,
+          error: 'URL is required',
+        });
+        return;
+      }
+
       await webhookManager.addWebhook({
         ...validated.data,
+        url: validated.data.url,
+        method: validated.data.method || 'POST',
+        events: validated.data.events || [],
         enabled: validated.data.enabled ?? false,
+        retryEnabled: validated.data.retryEnabled ?? true,
+        retryMaxAttempts: validated.data.retryMaxAttempts ?? 3,
+        retryDelayMs: validated.data.retryDelayMs ?? 1000,
+        timeoutMs: validated.data.timeoutMs ?? 5000,
       });
 
       res.status(201).json({
@@ -299,9 +314,24 @@ export function createAPIRoutes(
         return;
       }
 
+      if (!validated.data.url) {
+        res.status(400).json({
+          success: false,
+          error: 'URL is required for testing',
+        });
+        return;
+      }
+
       const result = await webhookManager.testWebhook({
         ...validated.data,
+        url: validated.data.url,
+        method: validated.data.method || 'POST',
+        events: validated.data.events || [],
         enabled: true,
+        retryEnabled: validated.data.retryEnabled ?? true,
+        retryMaxAttempts: validated.data.retryMaxAttempts ?? 3,
+        retryDelayMs: validated.data.retryDelayMs ?? 1000,
+        timeoutMs: validated.data.timeoutMs ?? 5000,
       });
 
       res.json({

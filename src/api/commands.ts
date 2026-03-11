@@ -107,6 +107,10 @@ export function createExtensionCommands(
         quietHoursTimezone: config.get<string>('quietHoursTimezone', 'UTC'),
         telemetryEnabled: config.get<boolean>('telemetryEnabled', false),
         localOnlyMode: config.get<boolean>('localOnlyMode', false),
+        apiEnabled: config.get<boolean>('apiEnabled', false),
+        restApiEnabled: config.get<boolean>('restApiEnabled', false),
+        restApiPort: config.get<number>('restApiPort', 13338),
+        webhookEnabled: config.get<boolean>('webhookEnabled', false),
       };
     },
 
