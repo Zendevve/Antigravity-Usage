@@ -1,6 +1,5 @@
-import { z } from 'zod';
 import { QuotaSource } from './source-registry';
-import { SourceReading, SourceReadingSchema, ConfidenceGrade, ReconciledQuotaStateSchema } from '../types';
+import { SourceReading, ConfidenceGrade } from '../types';
 import { log } from '../../util/logger';
 
 /**

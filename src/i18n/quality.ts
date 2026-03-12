@@ -104,7 +104,7 @@ function calculateConsistency(translation: Record<string, unknown>): number {
   // In a full implementation, this would check against glossary
   const values = Object.values(translation)
     .filter(v => typeof v === 'string')
-    .map(v => v as string);
+    .map(v => v);
 
   if (values.length === 0) return 0;
 

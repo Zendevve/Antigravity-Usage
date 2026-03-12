@@ -45,7 +45,7 @@ export function getDefaultPlatformConfig(): PlatformConfig {
  * Get platform-specific configuration based on platform info
  */
 export function getPlatformConfigForInfo(platform: PlatformInfo): PlatformConfig {
-  const { family, isWindows, isMac, isLinux } = platform;
+  const { family, isWindows, isMac } = platform;
 
   // Platform-specific polling intervals
   let pollingConfig: {

@@ -4,7 +4,6 @@ import { detectConnection } from './platform/connection/detector';
 import { connectionState$, ConnectionStatus } from './platform/connection/connection-state';
 import { log } from './util/logger';
 import { DisposableStore } from './util/disposable';
-import { ConfigSchema } from './core/types/config';
 
 // Sprint 2 & 3 Imports
 import { readConfig } from './platform/config/config-reader';
@@ -66,7 +65,7 @@ export async function activate(context: vscode.ExtensionContext) {
       retentionDays: initialConfig.historyRetentionDays,
       snapshotIntervalMinutes: initialConfig.historySnapshotIntervalMinutes,
     });
-    const queryApi = createQueryApi(historyStore);
+    const _queryApi = createQueryApi(historyStore);
 
     // 2. Detection
     const connectionResult = await detectConnection();

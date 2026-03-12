@@ -3,6 +3,7 @@ import type { QuotaState } from '../../../core/types/quota';
 import type { ForecastResult } from '../../../core/forecast/forecast-types';
 import type { QuotaSnapshot } from '../../storage/history-store';
 import type { TrendData, ModelStats } from '../../storage/query-api';
+import { log } from '../../../util/logger';
 
 /**
  * Message protocol version for backward compatibility
@@ -202,7 +203,7 @@ export type WebviewResponse<T> =
 export function validateIncomingMessage(message: unknown): ToExtensionMessage | null {
   const result = ToExtensionMessageSchema.safeParse(message);
   if (!result.success) {
-    console.error('Invalid message from WebView:', result.error.errors);
+    log.error('Invalid message from WebView:', result.error.errors);
     return null;
   }
   return result.data;
@@ -214,7 +215,7 @@ export function validateIncomingMessage(message: unknown): ToExtensionMessage | 
 export function validateOutgoingMessage(message: unknown): boolean {
   const result = ToWebviewMessageSchema.safeParse(message);
   if (!result.success) {
-    console.error('Invalid message to WebView:', result.error.errors);
+    log.error('Invalid message to WebView:', result.error.errors);
     return false;
   }
   return true;

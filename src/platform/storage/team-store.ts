@@ -1,13 +1,10 @@
 import { Memento } from 'vscode';
-import { z } from 'zod';
 import { log } from '../../util/logger';
 import {
   Team,
   TeamPool,
   PoolMember,
-  TeamSettings,
   TeamInvitation,
-  ApiKey,
   DEFAULT_TEAM_SETTINGS,
 } from '../../core/teams/team-types';
 

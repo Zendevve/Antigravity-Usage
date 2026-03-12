@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { QuotaState } from '../core/types/quota';
 import { AlertSeverity } from '../core/types/alert';
 import { ForecastResult } from '../core/forecast/forecast-types';
+import { log } from '../util/logger';
 
 /**
  * Date range for querying historical data
@@ -264,7 +265,7 @@ export class ExtensionEventBus {
         try {
           callback(event);
         } catch (error) {
-          console.error(`Error in event callback for ${eventType}:`, error);
+          log.error(`Error in event callback for ${eventType}:`, error);
         }
       }
     }

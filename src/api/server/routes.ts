@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { QuotaState } from '../../core/types/quota';
 import { ForecastResult } from '../../core/forecast/forecast-types';
-import { HistoryStore, QuotaSnapshot } from '../../platform/storage/history-store';
+import { HistoryStore } from '../../platform/storage/history-store';
 import { WebhookManager } from '../../core/webhooks/webhook-manager';
 import { WebhookConfigSchema, getAvailableWebhookEvents } from '../../core/webhooks/webhook-config';
 import { log } from '../../util/logger';
@@ -79,26 +79,10 @@ export const DEFAULT_REST_CONFIG: RESTConfig = {
 /**
  * Request validation schemas
  */
-const DateRangeSchema = z.object({
-  start: z.string().datetime(),
-  end: z.string().datetime(),
-});
-
 const WebhookConfigInputSchema = WebhookConfigSchema.extend({
   enabled: z.boolean().optional(),
 });
 
-const UpdateConfigSchema = z.object({
-  enabled: z.boolean().optional(),
-  port: z.number().int().min(1).max(65535).optional(),
-  authEnabled: z.boolean().optional(),
-  corsEnabled: z.boolean().optional(),
-  apiKey: z.string().optional(),
-});
-
-/**
- * API Routes factory
- */
 export function createAPIRoutes(
   getQuotaState: () => QuotaState[],
   getForecast: () => ForecastResult | null,
